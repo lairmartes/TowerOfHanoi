@@ -4,34 +4,52 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class DiscoTest {
 
+    private static int SIZE_BASE = 30;
+    private static int SIZE_HIGH = 40;
+    private static int SIZE_LOW = 20;
+
+    private static Disco DISK_BASE = new Disco(SIZE_BASE);
+    private static Disco DISK_HIGH = new Disco(SIZE_HIGH);
+    private static Disco DISK_LOW = new Disco(SIZE_LOW);
+
+    private static int COMPARE_TO_EQUAL_OBJECTS = 0;
+
     @Test
     @DisplayName("Testing disk size")
-    void getTamanho() {
+    void testDiskSizeAfterCreation() {
 
-        int tamanhoTeste = 3;
-        Disco diskTest = new Disco(tamanhoTeste);
-        assertEquals(diskTest.getTamanho(), tamanhoTeste);
+        int sizeTest = 3;
+        Disco diskTest = new Disco(sizeTest);
+        assertEquals(diskTest.getTamanho(), sizeTest);
     }
 
     @Test
-    @DisplayName("Testing comparison")
-    void compareTo() {
+    @DisplayName("Testing comparison disks with same size")
+    void compareToEqualDisks() {
 
-        int sizeBase = 30;
-        int sizeLow = 20;
-        int sizeHigh = 40;
-
-        Disco diskBase = new Disco(sizeBase);
-        Disco diskLow = new Disco(sizeLow);
-        Disco diskHigh = new Disco(sizeHigh);
-
-        //boolean isTheSame = diskBase.compareTo(diskBase) == 0;
+        assertEquals(DISK_BASE.compareTo(DISK_BASE), COMPARE_TO_EQUAL_OBJECTS);
+        assertNotEquals(DISK_BASE.compareTo(DISK_HIGH), COMPARE_TO_EQUAL_OBJECTS);
+        assertNotEquals(DISK_BASE.compareTo(DISK_LOW), COMPARE_TO_EQUAL_OBJECTS);
     }
 
     @Test
+    @DisplayName("Testing higher disks")
+    void compareToHigherDisks() {
+
+        assert(DISK_BASE.compareTo(DISK_HIGH) > COMPARE_TO_EQUAL_OBJECTS);
+    }
+
+    @Test
+    @DisplayName("Testing lower disks")
+    void compareToLowerDisks() {
+
+        assert(DISK_BASE.compareTo(DISK_LOW) < COMPARE_TO_EQUAL_OBJECTS);
+    }
+
     void equals() {
     }
 }
