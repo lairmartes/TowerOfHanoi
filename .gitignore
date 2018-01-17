@@ -1,0 +1,7 @@
+/** ignoring build files
+out/
+/** ignoring idea folders
+.idea/
+/** ignoring idea configuration files
+*.iml
+
