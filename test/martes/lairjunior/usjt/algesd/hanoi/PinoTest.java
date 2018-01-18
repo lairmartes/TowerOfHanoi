@@ -1,15 +1,87 @@
 package martes.lairjunior.usjt.algesd.hanoi;
 
+import martes.lairjunior.usjt.algesd.hanoi.exception.MovimentoInvalidoException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+
 
 class PinoTest {
 
+    private static final GerenciadorDoJogo GAME_MANAGER_INSTANCE = GerenciadorDoJogo.getInstance();
+
     @Test
-    void adicionar() {
+    @DisplayName("Adding disks to the pin in correct order")
+    void addDisksCorrectly() {
+        Pino pin = new Pino();
+        Disco disk1 = new Disco(1);
+        Disco disk2 = new Disco(2);
+
+        try {
+            pin.adicionar(disk2);
+            pin.adicionar(disk1);
+        } catch (MovimentoInvalidoException e) {
+            Assertions.fail("An invalid move error was notified incorrectly.");
+        }
     }
 
     @Test
-    void removerDisco() {
+    @DisplayName("Adding disks with size zero")
+    void addDiskSizeZero() {
+        Pino pin = new Pino();
+
+        Executable executionAddDisk = () -> pin.adicionar(Disco.DISCO_ZERO);
+
+        Assertions.assertThrows(MovimentoInvalidoException.class,
+                                executionAddDisk,
+                        "Should raise invalid move exception since a DISCO ZERO has been included.");
+    }
+    @Test
+    @DisplayName("Adding greater disks above lesser disks")
+    void addGreaterDiskOnLesserDisk() {
+        Pino pin = new Pino();
+
+        Disco disk1 = new Disco(1);
+        Disco disk2 = new Disco(2);
+
+        try {
+            pin.adicionar(disk1);
+        } catch (MovimentoInvalidoException e) {
+            Assertions.fail("A valid move was detected as invalid move incorrectly");
+            return;
+        }
+
+        Executable executionAddDisk = () -> pin.adicionar(disk2);
+
+        Assertions.assertThrows(MovimentoInvalidoException.class,
+                                executionAddDisk,
+                        "An exception should be raised since a greater disk has been put above a lesser disk");
+    }
+
+    @Test
+    @DisplayName("Removing disks from a regular pin")
+    void removeDiskFromRegularPin() {
+        Pino pin = new Pino();
+
+        Disco diskTest2 = new Disco(2);
+        Disco diskTest1 = new Disco(1);
+        try {
+            pin.adicionar(diskTest2);
+            pin.adicionar(diskTest1);
+        } catch (MovimentoInvalidoException e) {
+            Assertions.fail("A disk has been included, but an illegal movement has been detected");
+            return;
+        }
+        Disco diskRemoved = Disco.DISCO_ZERO;
+        try {
+            diskRemoved = pin.removerDisco();
+        } catch (MovimentoInvalidoException e) {
+            Assertions.fail("A disk has been removed from pin correctly, but an illegal movement has been detected");
+        }
+
+        Assertions.assertTrue(diskRemoved == diskTest1,
+                "Removed disk should be the last disk included in the pin");
     }
 
     @Test

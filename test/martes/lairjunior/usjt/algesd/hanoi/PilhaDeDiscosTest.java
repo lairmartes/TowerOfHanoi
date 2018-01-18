@@ -91,4 +91,28 @@ class PilhaDeDiscosTest {
         }
     }
 
+    @Test
+    @DisplayName("Pushing disk when stack is full")
+    void includingDiskInAFullStack() {
+        PilhaDeDiscos stackTest = new PilhaDeDiscos(2);
+
+        stackTest.push(new Disco(1));
+        stackTest.push(new Disco(2));
+
+        Assertions.assertTrue(stackTest.push(new Disco(3)) == Disco.DISCO_ZERO);
+    }
+
+    @Test
+    @DisplayName("Removing disk from an empty stack")
+    void removingDiskFromEmptyStack() {
+        PilhaDeDiscos stackTest = new PilhaDeDiscos(2);
+
+        stackTest.push(new Disco(1));
+        stackTest.push(new Disco(2));
+
+        stackTest.pop();
+        stackTest.pop();
+
+        Assertions.assertTrue(stackTest.pop() == Disco.DISCO_ZERO);
+    }
 }
