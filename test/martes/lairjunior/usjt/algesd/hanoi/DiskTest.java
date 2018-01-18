@@ -7,15 +7,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class DiscoTest {
+class DiskTest {
 
     private static int SIZE_BASE = 30;
     private static int SIZE_HIGH = 40;
     private static int SIZE_LOW = 20;
 
-    private static Disco DISK_BASE = new Disco(SIZE_BASE);
-    private static Disco DISK_HIGH = new Disco(SIZE_HIGH);
-    private static Disco DISK_LOW = new Disco(SIZE_LOW);
+    private static Disk DISK_BASE = new Disk(SIZE_BASE);
+    private static Disk DISK_HIGH = new Disk(SIZE_HIGH);
+    private static Disk DISK_LOW = new Disk(SIZE_LOW);
 
     private static int COMPARE_TO_EQUAL_OBJECTS = 0;
 
@@ -24,15 +24,15 @@ class DiscoTest {
     void testDiskSizeAfterCreation() {
 
         int sizeTest = 3;
-        Disco diskTest = new Disco(sizeTest);
-        assertEquals(diskTest.getTamanho(), sizeTest);
+        Disk diskTest = new Disk(sizeTest);
+        assertEquals(diskTest.getSize(), sizeTest);
     }
 
     @Test
     @DisplayName("Comparing same size disks")
     void compareToEqualDisks() {
 
-        Disco diskWithSizeOfBaseDisk = new Disco(SIZE_BASE);
+        Disk diskWithSizeOfBaseDisk = new Disk(SIZE_BASE);
 
         assertEquals(DISK_BASE.compareTo(diskWithSizeOfBaseDisk), COMPARE_TO_EQUAL_OBJECTS);
         assertNotEquals(DISK_BASE.compareTo(DISK_HIGH), COMPARE_TO_EQUAL_OBJECTS);
@@ -56,8 +56,8 @@ class DiscoTest {
     @Test
     @DisplayName("Two disks are equals since they have the same size")
     void equals() {
-        Disco disk1 = new Disco(3);
-        Disco disk2 = new Disco(3);
+        Disk disk1 = new Disk(3);
+        Disk disk2 = new Disk(3);
 
         assertTrue(disk1.equals(disk2));
     }

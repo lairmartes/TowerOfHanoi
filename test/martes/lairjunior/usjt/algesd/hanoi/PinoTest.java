@@ -15,8 +15,8 @@ class PinoTest {
     @DisplayName("Adding disks to the pin in correct order")
     void addDisksCorrectly() {
         Pino pin = new Pino();
-        Disco disk1 = new Disco(1);
-        Disco disk2 = new Disco(2);
+        Disk disk1 = new Disk(1);
+        Disk disk2 = new Disk(2);
 
         try {
             pin.adicionar(disk2);
@@ -31,7 +31,7 @@ class PinoTest {
     void addDiskSizeZero() {
         Pino pin = new Pino();
 
-        Executable executionAddDisk = () -> pin.adicionar(Disco.DISCO_ZERO);
+        Executable executionAddDisk = () -> pin.adicionar(Disk.DISK_ZERO);
 
         Assertions.assertThrows(MovimentoInvalidoException.class,
                                 executionAddDisk,
@@ -42,8 +42,8 @@ class PinoTest {
     void addGreaterDiskOnLesserDisk() {
         Pino pin = new Pino();
 
-        Disco disk1 = new Disco(1);
-        Disco disk2 = new Disco(2);
+        Disk disk1 = new Disk(1);
+        Disk disk2 = new Disk(2);
 
         try {
             pin.adicionar(disk1);
@@ -64,8 +64,8 @@ class PinoTest {
     void removeDiskFromRegularPin() {
         Pino pin = new Pino();
 
-        Disco diskTest2 = new Disco(2);
-        Disco diskTest1 = new Disco(1);
+        Disk diskTest2 = new Disk(2);
+        Disk diskTest1 = new Disk(1);
         try {
             pin.adicionar(diskTest2);
             pin.adicionar(diskTest1);
@@ -73,7 +73,7 @@ class PinoTest {
             Assertions.fail("A disk has been included, but an illegal movement has been detected");
             return;
         }
-        Disco diskRemoved = Disco.DISCO_ZERO;
+        Disk diskRemoved = Disk.DISK_ZERO;
         try {
             diskRemoved = pin.removerDisco();
         } catch (MovimentoInvalidoException e) {
@@ -88,12 +88,12 @@ class PinoTest {
     @DisplayName("Check if the list of disks can be recovered correctly")
     void getDiscos() {
 
-        Disco[] diskArrayTest = new Disco[4];
+        Disk[] diskArrayTest = new Disk[4];
 
-        diskArrayTest[0] = new Disco(1);
-        diskArrayTest[1] = new Disco(2);
-        diskArrayTest[2] = new Disco(3);
-        diskArrayTest[3] = new Disco(4);
+        diskArrayTest[0] = new Disk(1);
+        diskArrayTest[1] = new Disk(2);
+        diskArrayTest[2] = new Disk(3);
+        diskArrayTest[3] = new Disk(4);
 
         Pino pinTest = new Pino(); /* TODO: remove no param constructor */
         pinTest.iniciarPilhaDeDiscos(diskArrayTest.length);

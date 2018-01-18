@@ -15,12 +15,12 @@ class GerenciadorDoJogoTest {
         try {
 
             // First move - move disk 1 from pin 1 to pin 3.
-            Disco disk1 = matchTest.getPino(GerenciadorDoJogo.PINO_1).removerDisco();
+            Disk disk1 = matchTest.getPino(GerenciadorDoJogo.PINO_1).removerDisco();
             matchTest.getPino(GerenciadorDoJogo.PINO_3).adicionar(disk1);
             matchTest.incrementarMovimentos();
 
             // Second move - move disk 2 from pin 1 to pin 2
-            Disco disk2 = matchTest.getPino(GerenciadorDoJogo.PINO_1).removerDisco();
+            Disk disk2 = matchTest.getPino(GerenciadorDoJogo.PINO_1).removerDisco();
             matchTest.getPino(GerenciadorDoJogo.PINO_2).adicionar(disk2);
             matchTest.incrementarMovimentos();
 
@@ -30,7 +30,7 @@ class GerenciadorDoJogoTest {
             matchTest.incrementarMovimentos();
 
             // Fourth move - move disk 3 from pin 1 to pin 3
-            Disco disk3 = matchTest.getPino(GerenciadorDoJogo.PINO_1).removerDisco();
+            Disk disk3 = matchTest.getPino(GerenciadorDoJogo.PINO_1).removerDisco();
             matchTest.getPino(GerenciadorDoJogo.PINO_3).adicionar(disk3);
             matchTest.incrementarMovimentos();
 

@@ -38,7 +38,7 @@ class PilhaDeDiscosTest {
     @DisplayName("Including disks in a stack with higher capacity")
     void addingDisk() {
 
-        Disco diskTest = new Disco(3);
+        Disk diskTest = new Disk(3);
         int testQtty = 5; // stack with higher capacity
 
         PilhaDeDiscos stackTest = new PilhaDeDiscos(testQtty);
@@ -53,23 +53,23 @@ class PilhaDeDiscosTest {
     @Test
     @DisplayName("Push and pop content sequence")
     void sequencePushAndPop() {
-        List<Disco> diskTestList = new ArrayList<>(5);
+        List<Disk> diskTestList = new ArrayList<>(5);
 
-        diskTestList.add(new Disco(1));
-        diskTestList.add(new Disco(2));
-        diskTestList.add(new Disco(3));
-        diskTestList.add(new Disco(4));
-        diskTestList.add(new Disco(5));
+        diskTestList.add(new Disk(1));
+        diskTestList.add(new Disk(2));
+        diskTestList.add(new Disk(3));
+        diskTestList.add(new Disk(4));
+        diskTestList.add(new Disk(5));
 
         PilhaDeDiscos stackTest = new PilhaDeDiscos(5);
 
-        for (Disco disk:diskTestList) {
+        for (Disk disk:diskTestList) {
             stackTest.push(disk);
             Assertions.assertEquals(stackTest.top(), disk);
         }
 
         for (int i=4; i != 0; i--) {
-            Disco diskStack = (Disco)stackTest.pop();
+            Disk diskStack = (Disk)stackTest.pop();
             Assertions.assertEquals(diskStack, diskTestList.get(i));
         }
     }
@@ -81,7 +81,7 @@ class PilhaDeDiscosTest {
         PilhaDeDiscos stackTest = new PilhaDeDiscos(5);
 
         for (int i=1; i<6; i++) {
-            stackTest.push(new Disco(i));
+            stackTest.push(new Disk(i));
             Assertions.assertEquals(stackTest.size(), i);
         }
 
@@ -96,10 +96,10 @@ class PilhaDeDiscosTest {
     void includingDiskInAFullStack() {
         PilhaDeDiscos stackTest = new PilhaDeDiscos(2);
 
-        stackTest.push(new Disco(1));
-        stackTest.push(new Disco(2));
+        stackTest.push(new Disk(1));
+        stackTest.push(new Disk(2));
 
-        Assertions.assertTrue(stackTest.push(new Disco(3)) == Disco.DISCO_ZERO);
+        Assertions.assertTrue(stackTest.push(new Disk(3)) == Disk.DISK_ZERO);
     }
 
     @Test
@@ -107,12 +107,12 @@ class PilhaDeDiscosTest {
     void removingDiskFromEmptyStack() {
         PilhaDeDiscos stackTest = new PilhaDeDiscos(2);
 
-        stackTest.push(new Disco(1));
-        stackTest.push(new Disco(2));
+        stackTest.push(new Disk(1));
+        stackTest.push(new Disk(2));
 
         stackTest.pop();
         stackTest.pop();
 
-        Assertions.assertTrue(stackTest.pop() == Disco.DISCO_ZERO);
+        Assertions.assertTrue(stackTest.pop() == Disk.DISK_ZERO);
     }
 }
