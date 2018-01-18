@@ -1,8 +1,8 @@
 /*
  * Criado em 26/09/2005
  *
- * Para alterar o gabarito para este arquivo gerado vá para
- * Janela&gt;Preferências&gt;Java&gt;Geração de Códigos&gt;Código e Comentários
+ * Para alterar o gabarito para este arquivo gerado vï¿½ para
+ * Janela&gt;Preferï¿½ncias&gt;Java&gt;Geraï¿½ï¿½o de Cï¿½digos&gt;Cï¿½digo e Comentï¿½rios
  */
 package martes.lairjunior.usjt.algesd.hanoi;
 
@@ -11,8 +11,8 @@ import martes.lairjunior.usjt.algesd.hanoi.exception.MovimentoInvalidoException;
 /**
  * @author alunos
  *
- * Para alterar o gabarito para este comentário do tipo gerado vá para
- * Janela&gt;Preferências&gt;Java&gt;Geração de Códigos&gt;Código e Comentários
+ * Para alterar o gabarito para este comentï¿½rio do tipo gerado vï¿½ para
+ * Janela&gt;Preferï¿½ncias&gt;Java&gt;Geraï¿½ï¿½o de Cï¿½digos&gt;Cï¿½digo e Comentï¿½rios
  */
 public class GerenciadorDoJogo {
 	private static GerenciadorDoJogo _instance;
@@ -34,7 +34,7 @@ public class GerenciadorDoJogo {
 			_instance = new GerenciadorDoJogo();
 			_instance._pinosDoJogo = new Pino[QUANTIDADE_PINOS];
 			for (int i=0; i<QUANTIDADE_PINOS; i++) {
-				_instance._pinosDoJogo[i] = new Pino();
+				_instance._pinosDoJogo[i] = new Pino(); /* TODO: initialize pin qtty here. */
 			}
 			_instance.iniciarJogo();
 		}
@@ -48,6 +48,7 @@ public class GerenciadorDoJogo {
 	}
 	public void incrementarMovimentos() {
 		_quantidadeDeMovimentos++;
+
 	}
 	public void iniciarJogo() {
 		_discoAtual = new Disco(0);
