@@ -18,9 +18,9 @@ public class Pino {
 	public Pino() {
 		_pilhaDeDiscos = new PilhaDeDiscos(GerenciadorDoJogo.getInstance().getQuantidadeDeDiscos());
 	}
-	public void adicionar(Disco discoParaEmpilhar) throws MovimentoInvalidoException {
-		if (discoParaEmpilhar == Disco.DISCO_ZERO)
-			throw new MovimentoInvalidoException("Não é possível incluir Disco Zero");
+	public void adicionar(Disk discoParaEmpilhar) throws MovimentoInvalidoException {
+		if (discoParaEmpilhar == Disk.DISK_ZERO)
+			throw new MovimentoInvalidoException("Não é possível incluir Disk Zero");
 		if (_pilhaDeDiscos.size() == 0) {
 			_pilhaDeDiscos.push(discoParaEmpilhar);
 			return;
@@ -30,12 +30,12 @@ public class Pino {
 		}
 		else  _pilhaDeDiscos.push(discoParaEmpilhar);
 	}
-	public Disco removerDisco() throws MovimentoInvalidoException {
+	public Disk removerDisco() throws MovimentoInvalidoException {
 		if (_pilhaDeDiscos.size() == 0) {
 			throw new MovimentoInvalidoException("O pino não tem discos");
 		}
 		else {
-			return (Disco)_pilhaDeDiscos.pop();
+			return (Disk)_pilhaDeDiscos.pop();
 		}
 	}
 	public Object[] getDiscos() {
@@ -47,7 +47,7 @@ public class Pino {
 	public void iniciarPilhaDeDiscos(int quantidade) {
 		_pilhaDeDiscos.iniciarPilha(quantidade);
 	}
-	private Disco getDiscoMaisAlto() {
-		return (Disco)_pilhaDeDiscos.top();
+	private Disk getDiscoMaisAlto() {
+		return (Disk)_pilhaDeDiscos.top();
 	}
 }

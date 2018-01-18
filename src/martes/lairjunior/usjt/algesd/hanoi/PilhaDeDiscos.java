@@ -5,8 +5,6 @@ package martes.lairjunior.usjt.algesd.hanoi;
 
 import martes.lairjunior.usjt.algesd.pilha.PilhaGenerica;
 
-;
-
 /**
  * @author Lair Martes Junior RA 200105514
  */
@@ -27,16 +25,16 @@ public class PilhaDeDiscos implements PilhaGenerica {
 	}
 	private void preencherPilhaComDiscosZero() {
 		for (int i=0; i<iTam; i++)
-			cPilha[i] = Disco.DISCO_ZERO;
+			cPilha[i] = Disk.DISK_ZERO;
 	}
 	public Object push(Object cC) {
-		if (iPos >= iTam) return Disco.DISCO_ZERO;
+		if (iPos >= iTam) return Disk.DISK_ZERO;
 		return cPilha[iPos++] = cC;
 	}
 	public Object pop() {
-		if (iPos == 0) return Disco.DISCO_ZERO;
+		if (iPos == 0) return Disk.DISK_ZERO;
         Object result = cPilha[--iPos];
-		cPilha[iPos] = Disco.DISCO_ZERO;
+		cPilha[iPos] = Disk.DISK_ZERO;
 		return result;
 	}
 	public int size() {

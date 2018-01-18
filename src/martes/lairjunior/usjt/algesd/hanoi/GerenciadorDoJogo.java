@@ -23,9 +23,9 @@ public class GerenciadorDoJogo {
 	private static final int QUANTIDADE_PINOS = 3;
 	public static final int QUANTIDADE_DEFAULT_DISCOS = 3;
 	private Pino[] _pinosDoJogo;
-	private Disco _discoAtual;
+	private Disk _discoAtual;
 	private int _quantidadeDeDiscos = QUANTIDADE_DEFAULT_DISCOS;
-	private Disco[] _discosDoJogo = new Disco[_quantidadeDeDiscos];
+	private Disk[] _discosDoJogo = new Disk[_quantidadeDeDiscos];
 	private GerenciadorDoJogo() {
 
 	}
@@ -40,10 +40,10 @@ public class GerenciadorDoJogo {
 		}
 		return _instance;
 	}
-	public void setDiscoAtual(Disco disco) {
+	public void setDiscoAtual(Disk disco) {
 		_discoAtual = disco;
 	}
-	public Disco getDiscoAtual() {
+	public Disk getDiscoAtual() {
 		return _discoAtual;
 	}
 	public void incrementarMovimentos() {
@@ -51,15 +51,15 @@ public class GerenciadorDoJogo {
 
 	}
 	public void iniciarJogo() {
-		_discoAtual = new Disco(0);
+		_discoAtual = new Disk(0);
 		_quantidadeDeMovimentos = 0;
 		iniciarDiscos();
 		iniciarPinos();		
 	}
 	private void iniciarDiscos() {
-		_discosDoJogo = new Disco[_quantidadeDeDiscos];
+		_discosDoJogo = new Disk[_quantidadeDeDiscos];
 		for (int i=0; i<_quantidadeDeDiscos; i++) {
-			_discosDoJogo[i] = new Disco(i+1);
+			_discosDoJogo[i] = new Disk(i+1);
 		}
 	}
 	private void iniciarPinos() {
@@ -93,7 +93,7 @@ public class GerenciadorDoJogo {
 		int quantidadeDeDiscosDoPino1 = 0;
 		Object[] relacaoDiscosPino1 = getPino(PINO_1).getDiscos(); 
 		for (int i=0;i<relacaoDiscosPino1.length; i++) {
-			if (((Disco)relacaoDiscosPino1[i]).getTamanho() > 0)
+			if (!relacaoDiscosPino1[i].equals(Disk.DISK_ZERO))
 				quantidadeDeDiscosDoPino1++;
 		}
 		if (quantidadeDeDiscosDoPino1 > 0) return false;
@@ -101,7 +101,7 @@ public class GerenciadorDoJogo {
 		int quantidadeDeDiscosDoPino3 = _quantidadeDeDiscos;
 		Object[] relacaoDiscosPino3 = getPino(PINO_3).getDiscos();
 		for (int i=0;i<relacaoDiscosPino3.length; i++) {
-			if (((Disco)relacaoDiscosPino3[i]).getTamanho() > 0)
+			if (!relacaoDiscosPino3[i].equals(Disk.DISK_ZERO))
 			quantidadeDeDiscosDoPino3--;
 		}
 		if (quantidadeDeDiscosDoPino3 > 0) return false;

@@ -6,7 +6,7 @@
 
 package martes.lairjunior.usjt.algesd.hanoi.gui;
 
-import martes.lairjunior.usjt.algesd.hanoi.Disco;
+import martes.lairjunior.usjt.algesd.hanoi.Disk;
 import martes.lairjunior.usjt.algesd.hanoi.Pino;
 import martes.lairjunior.usjt.algesd.hanoi.exception.MovimentoInvalidoException;
 
@@ -25,7 +25,7 @@ public class PinoVisualPanel extends javax.swing.JPanel {
         int quantidade = (discos == null ? 0 : discos.length);
         String textoVisualPilha = "";
         for (int i = quantidade-1; i>=0; i--) {
-            LinhaDeDisco linhaDesenhada = new LinhaDeDisco((Disco)discos[i]);
+            LinhaDeDisco linhaDesenhada = new LinhaDeDisco((Disk)discos[i]);
             textoVisualPilha += System.getProperty("line.separator") + linhaDesenhada;
         }
         _discoVisualTextPane.setText(textoVisualPilha);
@@ -36,7 +36,7 @@ public class PinoVisualPanel extends javax.swing.JPanel {
         pinoTeste.iniciarPilhaDeDiscos(10);
         try {
             for (int i=9; i>=0; i--) {
-                pinoTeste.adicionar(new Disco(i+1));
+                pinoTeste.adicionar(new Disk(i+1));
             }
         }catch (MovimentoInvalidoException e) {
             e.printStackTrace();

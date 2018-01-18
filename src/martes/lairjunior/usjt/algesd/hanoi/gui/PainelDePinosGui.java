@@ -6,7 +6,7 @@
 
 package martes.lairjunior.usjt.algesd.hanoi.gui;
 
-import martes.lairjunior.usjt.algesd.hanoi.Disco;
+import martes.lairjunior.usjt.algesd.hanoi.Disk;
 import martes.lairjunior.usjt.algesd.hanoi.GerenciadorDoJogo;
 import martes.lairjunior.usjt.algesd.hanoi.command.PinoCommandFactory;
 import martes.lairjunior.usjt.algesd.hanoi.exception.MovimentoInvalidoException;
@@ -17,7 +17,7 @@ import martes.lairjunior.usjt.algesd.hanoi.exception.MovimentoInvalidoException;
  */
 public class PainelDePinosGui extends javax.swing.JPanel {
     private LinhaDeDisco _linhaDoDiscoAtual;
-    private Disco _discoAtual;
+    private Disk _discoAtual;
     /** Creates new form PainelDePinosGui */
     public PainelDePinosGui() {
         initComponents();
@@ -44,7 +44,7 @@ public class PainelDePinosGui extends javax.swing.JPanel {
     }
     private void atualizarDisco() {
         _discoAtual = GerenciadorDoJogo.getInstance().getDiscoAtual();
-        _discoAtualTamanhoGuiLabel.setText(Integer.toString(_discoAtual.getTamanho()));
+        _discoAtualTamanhoGuiLabel.setText(Integer.toString(_discoAtual.getSize()));
         _linhaDoDiscoAtual = new LinhaDeDisco(GerenciadorDoJogo.getInstance().getDiscoAtual());
         _discoAtualGuiLabel.setText(_linhaDoDiscoAtual.toString());
         _avisoMovimentoInvalido.setText("");
