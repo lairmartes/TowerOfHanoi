@@ -85,10 +85,40 @@ class PinoTest {
     }
 
     @Test
+    @DisplayName("Check if the list of disks can be recovered correctly")
     void getDiscos() {
+
+        Disco[] diskArrayTest = new Disco[4];
+
+        diskArrayTest[0] = new Disco(1);
+        diskArrayTest[1] = new Disco(2);
+        diskArrayTest[2] = new Disco(3);
+        diskArrayTest[3] = new Disco(4);
+
+        Pino pinTest = new Pino(); /* TODO: remove no param constructor */
+        pinTest.iniciarPilhaDeDiscos(diskArrayTest.length);
+
+        try {
+            pinTest.adicionar(diskArrayTest[3]);
+            pinTest.adicionar(diskArrayTest[2]);
+            pinTest.adicionar(diskArrayTest[1]);
+            pinTest.adicionar(diskArrayTest[0]);
+        } catch (MovimentoInvalidoException e) {
+            Assertions.fail("An invalid move was incorrectly detected while testing");
+        }
+
+        Object[] recoveredDisks = pinTest.getDiscos();
+
+        /* testing disks inputed and recovered */ {
+            int count = 0;
+            for (int i = diskArrayTest.length - 1; i >= 0; i--) {
+                Assertions.assertTrue(diskArrayTest[i] == recoveredDisks[count++]);
+            }
+        }
     }
 
     @Test
     void iniciarPilhaDeDiscos() {
+        /* TODO: Turn Pino.iniciarPilhaDeDiscos without parameters a private method */
     }
 }
