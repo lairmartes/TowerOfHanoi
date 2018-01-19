@@ -7,14 +7,14 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-class PilhaDeDiscosTest {
+class DiskStackTest {
 
     @Test
     @DisplayName("Initial stack must start with zero disks")
     void initializingStack() {
 
         int testQtty = 3;
-        PilhaDeDiscos stackTest = new PilhaDeDiscos(testQtty);
+        DiskStack stackTest = new DiskStack(testQtty);
 
         Assertions.assertEquals(stackTest.size(), 0); // no matter stack size, stack has zero disks
     }
@@ -24,7 +24,7 @@ class PilhaDeDiscosTest {
     void removingDisk() {
 
         int testQtty = 3;
-        PilhaDeDiscos stackTest = new PilhaDeDiscos(testQtty);
+        DiskStack stackTest = new DiskStack(testQtty);
 
         stackTest.pop();
         Assertions.assertEquals(stackTest.size(), 0); /* the capacity of the stack doesn't change
@@ -41,7 +41,7 @@ class PilhaDeDiscosTest {
         Disk diskTest = new Disk(3);
         int testQtty = 5; // stack with higher capacity
 
-        PilhaDeDiscos stackTest = new PilhaDeDiscos(testQtty);
+        DiskStack stackTest = new DiskStack(testQtty);
 
         stackTest.push(diskTest);
         Assertions.assertEquals(stackTest.size(), 1);
@@ -61,7 +61,7 @@ class PilhaDeDiscosTest {
         diskTestList.add(new Disk(4));
         diskTestList.add(new Disk(5));
 
-        PilhaDeDiscos stackTest = new PilhaDeDiscos(5);
+        DiskStack stackTest = new DiskStack(5);
 
         for (Disk disk:diskTestList) {
             stackTest.push(disk);
@@ -78,7 +78,7 @@ class PilhaDeDiscosTest {
     @DisplayName("Stack size after including and removing disks from stack")
     void stackSize() {
 
-        PilhaDeDiscos stackTest = new PilhaDeDiscos(5);
+        DiskStack stackTest = new DiskStack(5);
 
         for (int i=1; i<6; i++) {
             stackTest.push(new Disk(i));
@@ -94,7 +94,7 @@ class PilhaDeDiscosTest {
     @Test
     @DisplayName("Pushing disk when stack is full")
     void includingDiskInAFullStack() {
-        PilhaDeDiscos stackTest = new PilhaDeDiscos(2);
+        DiskStack stackTest = new DiskStack(2);
 
         stackTest.push(new Disk(1));
         stackTest.push(new Disk(2));
@@ -105,7 +105,7 @@ class PilhaDeDiscosTest {
     @Test
     @DisplayName("Removing disk from an empty stack")
     void removingDiskFromEmptyStack() {
-        PilhaDeDiscos stackTest = new PilhaDeDiscos(2);
+        DiskStack stackTest = new DiskStack(2);
 
         stackTest.push(new Disk(1));
         stackTest.push(new Disk(2));

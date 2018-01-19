@@ -1,27 +1,27 @@
 package martes.lairjunior.usjt.algesd.hanoi;
 
-import martes.lairjunior.usjt.algesd.hanoi.exception.MovimentoInvalidoException;
+import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 
-class PinoTest {
+class PinTest {
 
     private static final GerenciadorDoJogo GAME_MANAGER_INSTANCE = GerenciadorDoJogo.getInstance();
 
     @Test
     @DisplayName("Adding disks to the pin in correct order")
     void addDisksCorrectly() {
-        Pino pin = new Pino();
+        Pin pin = new Pin(4);
         Disk disk1 = new Disk(1);
         Disk disk2 = new Disk(2);
 
         try {
-            pin.adicionar(disk2);
-            pin.adicionar(disk1);
-        } catch (MovimentoInvalidoException e) {
+            pin.add(disk2);
+            pin.add(disk1);
+        } catch (InvalidMoveException e) {
             Assertions.fail("An invalid move error was notified incorrectly.");
         }
     }
@@ -29,32 +29,32 @@ class PinoTest {
     @Test
     @DisplayName("Adding disks with size zero")
     void addDiskSizeZero() {
-        Pino pin = new Pino();
+        Pin pin = new Pin(5);
 
-        Executable executionAddDisk = () -> pin.adicionar(Disk.DISK_ZERO);
+        Executable executionAddDisk = () -> pin.add(Disk.DISK_ZERO);
 
-        Assertions.assertThrows(MovimentoInvalidoException.class,
+        Assertions.assertThrows(InvalidMoveException.class,
                                 executionAddDisk,
                         "Should raise invalid move exception since a DISCO ZERO has been included.");
     }
     @Test
     @DisplayName("Adding greater disks above lesser disks")
     void addGreaterDiskOnLesserDisk() {
-        Pino pin = new Pino();
+        Pin pin = new Pin(5);
 
         Disk disk1 = new Disk(1);
         Disk disk2 = new Disk(2);
 
         try {
-            pin.adicionar(disk1);
-        } catch (MovimentoInvalidoException e) {
+            pin.add(disk1);
+        } catch (InvalidMoveException e) {
             Assertions.fail("A valid move was detected as invalid move incorrectly");
             return;
         }
 
-        Executable executionAddDisk = () -> pin.adicionar(disk2);
+        Executable executionAddDisk = () -> pin.add(disk2);
 
-        Assertions.assertThrows(MovimentoInvalidoException.class,
+        Assertions.assertThrows(InvalidMoveException.class,
                                 executionAddDisk,
                         "An exception should be raised since a greater disk has been put above a lesser disk");
     }
@@ -62,21 +62,21 @@ class PinoTest {
     @Test
     @DisplayName("Removing disks from a regular pin")
     void removeDiskFromRegularPin() {
-        Pino pin = new Pino();
+        Pin pin = new Pin(5);
 
         Disk diskTest2 = new Disk(2);
         Disk diskTest1 = new Disk(1);
         try {
-            pin.adicionar(diskTest2);
-            pin.adicionar(diskTest1);
-        } catch (MovimentoInvalidoException e) {
+            pin.add(diskTest2);
+            pin.add(diskTest1);
+        } catch (InvalidMoveException e) {
             Assertions.fail("A disk has been included, but an illegal movement has been detected");
             return;
         }
         Disk diskRemoved = Disk.DISK_ZERO;
         try {
-            diskRemoved = pin.removerDisco();
-        } catch (MovimentoInvalidoException e) {
+            diskRemoved = pin.removeDisk();
+        } catch (InvalidMoveException e) {
             Assertions.fail("A disk has been removed from pin correctly, but an illegal movement has been detected");
         }
 
@@ -95,19 +95,19 @@ class PinoTest {
         diskArrayTest[2] = new Disk(3);
         diskArrayTest[3] = new Disk(4);
 
-        Pino pinTest = new Pino(); /* TODO: remove no param constructor */
-        pinTest.iniciarPilhaDeDiscos(diskArrayTest.length);
+        Pin pinTest = new Pin(3);
+        pinTest.reset(diskArrayTest.length);
 
         try {
-            pinTest.adicionar(diskArrayTest[3]);
-            pinTest.adicionar(diskArrayTest[2]);
-            pinTest.adicionar(diskArrayTest[1]);
-            pinTest.adicionar(diskArrayTest[0]);
-        } catch (MovimentoInvalidoException e) {
+            pinTest.add(diskArrayTest[3]);
+            pinTest.add(diskArrayTest[2]);
+            pinTest.add(diskArrayTest[1]);
+            pinTest.add(diskArrayTest[0]);
+        } catch (InvalidMoveException e) {
             Assertions.fail("An invalid move was incorrectly detected while testing");
         }
 
-        Object[] recoveredDisks = pinTest.getDiscos();
+        Object[] recoveredDisks = pinTest.getDisks();
 
         /* testing disks inputed and recovered */ {
             int count = 0;
@@ -117,8 +117,4 @@ class PinoTest {
         }
     }
 
-    @Test
-    void iniciarPilhaDeDiscos() {
-        /* TODO: Turn Pino.iniciarPilhaDeDiscos without parameters a private method */
-    }
 }
