@@ -9,7 +9,7 @@ import org.junit.jupiter.api.function.Executable;
 
 class PinTest {
 
-    private static final GerenciadorDoJogo GAME_MANAGER_INSTANCE = GerenciadorDoJogo.getInstance();
+    private static final GameManager GAME_MANAGER_INSTANCE = GameManager.getInstance();
 
     @Test
     @DisplayName("Adding disks to the pin in correct order")
