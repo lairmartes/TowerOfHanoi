@@ -76,73 +76,115 @@ class GameManagerTest {
         Disk[] pinsInDisk;
 
         @Test
-        @DisplayName("First move - Disk 1 from Pin 1 to Pin 2")
+        @DisplayName("First move - Disk 1 from Pin 1 to Pin 3")
         void firstMove() {
             try {
                 toBeMoved = _matchTest.selectFromPin(FIRST);
                 _matchTest.moveSelectedToPin(THIRD);
-                Assertions.assertEquals(toBeMoved.getSize(),
-                        1,
+                Assertions.assertEquals(1, toBeMoved.getSize(),
                         "The first disk should be size 1");
                 // Check involved pins stack
                 pinsInDisk = _matchTest.clonedPinStack(FIRST);
-                Assertions.assertEquals(pinsInDisk.length,
-                        2,
+                Assertions.assertEquals(2, pinsInDisk.length,
                         "Must have 2 disks since one disk has been removed");
                 pinsInDisk = _matchTest.clonedPinStack(THIRD);
-                Assertions.assertEquals(pinsInDisk.length,
-                        1,
+                Assertions.assertEquals(1, pinsInDisk.length,
                         "Must have 1 disk since one disk has been included");
             } catch (InvalidMoveException e) {
                 Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
             }
+        }
 
+        @Test
+        @DisplayName("Second move - Disk 2 from Pin 1 to Pin 2")
+        void secondMove() {
 
-
-            /* Second move */
-            {
+            try {
                 toBeMoved = _matchTest.selectFromPin(FIRST);
                 _matchTest.moveSelectedToPin(FIRST, SECOND);
-                Assertions.assertEquals(toBeMoved.getSize(),
-                        2,
+                Assertions.assertEquals(2, toBeMoved.getSize(),
                         "The second disk must have size 2");
                 pinsInDisk = _matchTest.clonePinStack(FIRST);
-                Assertions.assertEquals(pinsInDisk.length,
-                        1,
+                Assertions.assertEquals(1, pinsInDisk.length,
                         "Must have only one disk, since two disks have been moved to pin 3 and 2");
                 pinsInDisk = _matchTest.clonePinStack(SECOND);
-                Assertions.assertEquals(pinsInDisk.length,
-                        1,
-                        "Must have only one disk, since there's no disk before last move");
+                Assertions.assertEquals(1, pinsInDisk.length,
+                        "Must have only one disk, since there was no disk before last move");
+            } catch (InvalidMoveException e) {
+                Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
             }
+        }
 
-            /* Third move */
-            {
+        @Test
+        @DisplayName("Third move - Disk 1 from Pin 3 to Pin 2")
+        void thirdMove() {
+            try {
                 toBeMoved = _matchTest.selectFromPin(THIRD);
                 _matchTest.moveSelectedToPin(SECOND);
                 Assertions.assertEquals(toBeMoved.getSize(), 1);
+            } catch (InvalidMoveException e) {
+                Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
             }
-
-            toBeMoved = _matchTest.selectFromPin(FIRST);
-            _matchTest.moveSelectedToPin(THIRD);
-            Assertions.assertEquals(toBeMoved.getSize(), 3);
-
-            toBeMoved = _matchTest.selectFromPin(SECOND);
-            _matchTest.moveSelectedToPin(FIRST);
-
-            toBeMoved = _matchTest.selectFromPin(SECOND);
-            _matchTest.moveSelectedToPin(THIRD);
-
-            toBeMoved = _matchTest.selectFromPin(FIRST);
-            _matchTest.moveSelectedToPin(THIRD);
-
-        } catch(
-        InvalidMoveException e)
-
-        {
-            Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
         }
+
+        @Test
+        @DisplayName("Fourth move - Disk 3 from Pin 1 to Pin 3")
+        void fourthMove() {
+
+            try {
+
+                toBeMoved = _matchTest.selectFromPin(FIRST);
+                _matchTest.moveSelectedToPin(THIRD);
+                Assertions.assertEquals(toBeMoved.getSize(), 3);
+
+            } catch (InvalidMoveException e) {
+                Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
+            }
+        }
+
+        @Test
+        @DisplayName("Fifth move - Disk 1 from Pin 2 to Pin 1")
+        void fifthMove() {
+
+            try {
+                toBeMoved = _matchTest.selectFromPin(SECOND);
+                _matchTest.moveSelectedToPin(FIRST);
+            } catch (InvalidMoveException e) {
+                Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
+            }
+        }
+
+        @Test
+        @DisplayName("Sixth move - Disk 2 from Pin 2 to Pin 3")
+        void sixthMove() {
+
+            try {
+
+                toBeMoved = _matchTest.selectFromPin(SECOND);
+                _matchTest.moveSelectedToPin(THIRD);
+            } catch (InvalidMoveException e) {
+                Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
+            }
+        }
+
+        @Test
+        @DisplayName("Final move - Disk 1 from Pin 1 to Pin 3")
+        void finalMove() {
+            try {
+                toBeMoved = _matchTest.selectFromPin(FIRST);
+                _matchTest.moveSelectedToPin(THIRD);
+            } catch (InvalidMoveException e) {
+                Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
+            }
+        }
+
+    } catch(
+    InvalidMoveException e)
+
+    {
+        Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
     }
 }
-
 }
+
+        }
