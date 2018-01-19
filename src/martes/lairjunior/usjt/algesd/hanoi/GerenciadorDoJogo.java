@@ -6,7 +6,7 @@
  */
 package martes.lairjunior.usjt.algesd.hanoi;
 
-import martes.lairjunior.usjt.algesd.hanoi.exception.MovimentoInvalidoException;
+import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
 
 /**
  * @author alunos
@@ -22,7 +22,7 @@ public class GerenciadorDoJogo {
 	public static final int PINO_3 = 2;
 	private static final int QUANTIDADE_PINOS = 3;
 	public static final int QUANTIDADE_DEFAULT_DISCOS = 3;
-	private Pino[] _pinosDoJogo;
+	private Pin[] _pinosDoJogo;
 	private Disk _discoAtual;
 	private int _quantidadeDeDiscos = QUANTIDADE_DEFAULT_DISCOS;
 	private Disk[] _discosDoJogo = new Disk[_quantidadeDeDiscos];
@@ -32,9 +32,9 @@ public class GerenciadorDoJogo {
 	public static GerenciadorDoJogo getInstance() {
 		if (_instance == null) {
 			_instance = new GerenciadorDoJogo();
-			_instance._pinosDoJogo = new Pino[QUANTIDADE_PINOS];
+			_instance._pinosDoJogo = new Pin[QUANTIDADE_PINOS];
 			for (int i=0; i<QUANTIDADE_PINOS; i++) {
-				_instance._pinosDoJogo[i] = new Pino(); /* TODO: initialize pin qtty here. */
+				_instance._pinosDoJogo[i] = new Pin(); /* TODO: initialize pin qtty here. */
 			}
 			_instance.iniciarJogo();
 		}
@@ -73,11 +73,11 @@ public class GerenciadorDoJogo {
 			for (int i=_quantidadeDeDiscos-1; i >= 0; i--)
 				_pinosDoJogo[PINO_1].adicionar(_discosDoJogo[i]);
 		}
-		catch (MovimentoInvalidoException e) {
+		catch (InvalidMoveException e) {
 			e.printStackTrace();
 		}
 	}
-	public Pino getPino(int numeroDoPino) {
+	public Pin getPino(int numeroDoPino) {
 			return _pinosDoJogo[numeroDoPino];
 	}
 	public int getQuantidadeDeDiscos() {

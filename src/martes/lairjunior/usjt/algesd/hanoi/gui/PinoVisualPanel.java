@@ -7,8 +7,8 @@
 package martes.lairjunior.usjt.algesd.hanoi.gui;
 
 import martes.lairjunior.usjt.algesd.hanoi.Disk;
-import martes.lairjunior.usjt.algesd.hanoi.Pino;
-import martes.lairjunior.usjt.algesd.hanoi.exception.MovimentoInvalidoException;
+import martes.lairjunior.usjt.algesd.hanoi.Pin;
+import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
 
 /**
  *
@@ -20,7 +20,7 @@ public class PinoVisualPanel extends javax.swing.JPanel {
         initComponents();
         //testar();
     }
-    public void setPino(Pino pino) {
+    public void setPino(Pin pino) {
         Object[] discos = pino.getDiscos();
         int quantidade = (discos == null ? 0 : discos.length);
         String textoVisualPilha = "";
@@ -32,16 +32,16 @@ public class PinoVisualPanel extends javax.swing.JPanel {
     }
     
     public void testar() {
-        Pino pinoTeste = new Pino();
-        pinoTeste.iniciarPilhaDeDiscos(10);
+        Pin pinTeste = new Pin();
+        pinTeste.iniciarPilhaDeDiscos(10);
         try {
             for (int i=9; i>=0; i--) {
-                pinoTeste.adicionar(new Disk(i+1));
+                pinTeste.adicionar(new Disk(i+1));
             }
-        }catch (MovimentoInvalidoException e) {
+        }catch (InvalidMoveException e) {
             e.printStackTrace();
         }
-        setPino(pinoTeste);
+        setPino(pinTeste);
     }
     /** This method is called from within the constructor to
      * initialize the form.

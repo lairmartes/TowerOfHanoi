@@ -6,9 +6,11 @@ package martes.lairjunior.usjt.algesd.pilha;
 /**
  * @author Lair Martes Junior RA 200105514
  */
-public interface InterfacePilha {
-	char pop();
-	char push(char cC);
+public interface GenericStack<T, E> {
+	T pop();
+	T push(E cC);
 	int size();
-	char top();
+	void reset(int capacity);
+	T top();
+	T[] content();
 }

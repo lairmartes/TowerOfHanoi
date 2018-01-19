@@ -9,7 +9,7 @@ package martes.lairjunior.usjt.algesd.hanoi.gui;
 import martes.lairjunior.usjt.algesd.hanoi.Disk;
 import martes.lairjunior.usjt.algesd.hanoi.GerenciadorDoJogo;
 import martes.lairjunior.usjt.algesd.hanoi.command.PinoCommandFactory;
-import martes.lairjunior.usjt.algesd.hanoi.exception.MovimentoInvalidoException;
+import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
 
 /**
  *
@@ -86,7 +86,7 @@ public class PainelDePinosGui extends javax.swing.JPanel {
 
         _painelBotoes.setLayout(new java.awt.GridBagLayout());
 
-        _pino1GuiBotao.setText("Pino 1");
+        _pino1GuiBotao.setText("Pin 1");
         _pino1GuiBotao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _pino1GuiBotaoActionPerformed(evt);
@@ -100,7 +100,7 @@ public class PainelDePinosGui extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 3, 2, 4);
         _painelBotoes.add(_pino1GuiBotao, gridBagConstraints);
 
-        _pino2GuiBotao.setText("Pino 2");
+        _pino2GuiBotao.setText("Pin 2");
         _pino2GuiBotao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _pino2GuiBotaoActionPerformed(evt);
@@ -114,7 +114,7 @@ public class PainelDePinosGui extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 3, 2, 4);
         _painelBotoes.add(_pino2GuiBotao, gridBagConstraints);
 
-        _pino3GuiBotao.setText("Pino 3");
+        _pino3GuiBotao.setText("Pin 3");
         _pino3GuiBotao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _pino3GuiBotaoActionPerformed(evt);
@@ -261,7 +261,7 @@ public class PainelDePinosGui extends javax.swing.JPanel {
             );
             atualizarDisco();
             atualizarPinos();
-        }catch (MovimentoInvalidoException e) {
+        }catch (InvalidMoveException e) {
             _avisoMovimentoInvalido.setText(e.getMessage());
         }
     }//GEN-LAST:event__pino1GuiBotaoActionPerformed

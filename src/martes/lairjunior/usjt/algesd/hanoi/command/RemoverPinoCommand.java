@@ -7,8 +7,8 @@
 package martes.lairjunior.usjt.algesd.hanoi.command;
 
 import martes.lairjunior.usjt.algesd.hanoi.Disk;
-import martes.lairjunior.usjt.algesd.hanoi.Pino;
-import martes.lairjunior.usjt.algesd.hanoi.exception.MovimentoInvalidoException;
+import martes.lairjunior.usjt.algesd.hanoi.Pin;
+import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
 
 /**
  * @author alunos
@@ -17,7 +17,7 @@ import martes.lairjunior.usjt.algesd.hanoi.exception.MovimentoInvalidoException;
  * Janela&gt;Prefer�ncias&gt;Java&gt;Gera��o de C�digos&gt;C�digo e Coment�rios
  */
 public class RemoverPinoCommand implements PinoCommand {
-	public Disk doAction(Pino pino, Disk disco) throws MovimentoInvalidoException {
+	public Disk doAction(Pin pino, Disk disco) throws InvalidMoveException {
 		Disk result = pino.removerDisco();
 		// nao contar remocao GerenciadorDoJogo.getInstance().incrementarMovimentos();
 		return result;
