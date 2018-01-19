@@ -14,8 +14,8 @@ import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
  * Para alterar o gabarito para este coment�rio do tipo gerado v� para
  * Janela&gt;Prefer�ncias&gt;Java&gt;Gera��o de C�digos&gt;C�digo e Coment�rios
  */
-public class GameManager {
-    private static GameManager _instance;
+public class HanoiTowerControl {
+    private static HanoiTowerControl _instance;
     private int _movesDone;
     public static final int PIN_1 = 0;
     public static final int PIN_2 = 1;
@@ -31,13 +31,13 @@ public class GameManager {
         FIRST, SECOND, THIRD
     }
 
-    private GameManager() {
+    private HanoiTowerControl() {
 
     }
 
-    public static GameManager getInstance() {
+    public static HanoiTowerControl getInstance() {
         if (_instance == null) {
-            _instance = new GameManager();
+            _instance = new HanoiTowerControl();
             _instance._gamePins = new Pin[PINS_AVAILABLE];
             for (int i = 0; i < PINS_AVAILABLE; i++) {
                 _instance._gamePins[i] = new Pin(INITIAL_DISK_CAPACITY);
@@ -140,5 +140,13 @@ public class GameManager {
 
     protected Disk[] clonePinStack(PinSequence aPin) {
         return new Disk[0];
+    }
+
+    protected boolean isGameOver() {
+        return false;
+    }
+
+    protected double getScore() {
+        return 0.0d;
     }
 }
