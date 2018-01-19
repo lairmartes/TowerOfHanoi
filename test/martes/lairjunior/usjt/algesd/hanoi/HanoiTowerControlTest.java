@@ -1,20 +1,17 @@
 package martes.lairjunior.usjt.algesd.hanoi;
 
 import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
+import org.junit.Before;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.function.Executable;
 
-import static martes.lairjunior.usjt.algesd.hanoi.GameManager.PinSequence.FIRST;
-import static martes.lairjunior.usjt.algesd.hanoi.GameManager.PinSequence.SECOND;
-import static martes.lairjunior.usjt.algesd.hanoi.GameManager.PinSequence.THIRD;
+import static martes.lairjunior.usjt.algesd.hanoi.HanoiTowerControl.PinSequence.FIRST;
+import static martes.lairjunior.usjt.algesd.hanoi.HanoiTowerControl.PinSequence.SECOND;
+import static martes.lairjunior.usjt.algesd.hanoi.HanoiTowerControl.PinSequence.THIRD;
 
-class GameManagerTest {
+class HanoiTowerControlTest {
 
-    private GameManager _matchTest;
-
-    @BeforeAll
-    void Setup() {
-        _matchTest = GameManager.getInstance();
-    }
+    private HanoiTowerControl _matchTest = HanoiTowerControl.getInstance();
 
     @Test
     @DisplayName("Let's play with 3 disk and 7 moves")
@@ -23,38 +20,38 @@ class GameManagerTest {
         try {
 
             // First move - move disk 1 from pin 1 to pin 3.
-            Disk disk1 = _matchTest.getPino(GameManager.PIN_1).removeDisk();
-            _matchTest.getPino(GameManager.PIN_3).add(disk1);
+            Disk disk1 = _matchTest.getPino(HanoiTowerControl.PIN_1).removeDisk();
+            _matchTest.getPino(HanoiTowerControl.PIN_3).add(disk1);
             _matchTest.incrementarMovimentos();
 
             // Second move - move disk 2 from pin 1 to pin 2
-            Disk disk2 = _matchTest.getPino(GameManager.PIN_1).removeDisk();
-            _matchTest.getPino(GameManager.PIN_2).add(disk2);
+            Disk disk2 = _matchTest.getPino(HanoiTowerControl.PIN_1).removeDisk();
+            _matchTest.getPino(HanoiTowerControl.PIN_2).add(disk2);
             _matchTest.incrementarMovimentos();
 
             // Third move - move disk 1 from pin 3 to pin 2
-            disk1 = _matchTest.getPino(GameManager.PIN_3).removeDisk();
-            _matchTest.getPino(GameManager.PIN_2).add(disk1);
+            disk1 = _matchTest.getPino(HanoiTowerControl.PIN_3).removeDisk();
+            _matchTest.getPino(HanoiTowerControl.PIN_2).add(disk1);
             _matchTest.incrementarMovimentos();
 
             // Fourth move - move disk 3 from pin 1 to pin 3
-            Disk disk3 = _matchTest.getPino(GameManager.PIN_1).removeDisk();
-            _matchTest.getPino(GameManager.PIN_3).add(disk3);
+            Disk disk3 = _matchTest.getPino(HanoiTowerControl.PIN_1).removeDisk();
+            _matchTest.getPino(HanoiTowerControl.PIN_3).add(disk3);
             _matchTest.incrementarMovimentos();
 
             // Fifth move - move disk 1 from pin 2 to pin 1
-            disk1 = _matchTest.getPino(GameManager.PIN_2).removeDisk();
-            _matchTest.getPino(GameManager.PIN_1).add(disk1);
+            disk1 = _matchTest.getPino(HanoiTowerControl.PIN_2).removeDisk();
+            _matchTest.getPino(HanoiTowerControl.PIN_1).add(disk1);
             _matchTest.incrementarMovimentos();
 
             // Sixth move - move disk 2 from pin 2 to pin 3
-            disk2 = _matchTest.getPino(GameManager.PIN_2).removeDisk();
-            _matchTest.getPino(GameManager.PIN_3).add(disk2);
+            disk2 = _matchTest.getPino(HanoiTowerControl.PIN_2).removeDisk();
+            _matchTest.getPino(HanoiTowerControl.PIN_3).add(disk2);
             _matchTest.incrementarMovimentos();
 
             // Seventh move - move disk 1 fromm pin 1 to pin 3
-            disk1 = _matchTest.getPino(GameManager.PIN_1).removeDisk();
-            _matchTest.getPino(GameManager.PIN_3).add(disk1);
+            disk1 = _matchTest.getPino(HanoiTowerControl.PIN_1).removeDisk();
+            _matchTest.getPino(HanoiTowerControl.PIN_3).add(disk1);
             _matchTest.incrementarMovimentos();
 
             // check if the match is over
@@ -73,6 +70,13 @@ class GameManagerTest {
     class Game {
 
         Disk toBeMoved;
+        HanoiTowerControl _matchTest;
+
+        @Before
+        void Setup() {
+            _matchTest = new HanoiTowerControl();
+            _matchTest.startGame(3);
+        }
 
         @Test
         @DisplayName("First move - Disk 1 from Pin 1 to Pin 3")
@@ -220,13 +224,34 @@ class GameManagerTest {
                 Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
             }
         }
+
+        @Test
+        @DisplayName("Check if game is over and score is perfect")
+        void checkGameStatus() {
+            Assertions.assertTrue(_matchTest.isGameOver(), "Game is not over, but it should be.");
+            Assertions.assertEquals(1d, _matchTest.getScore(), "Game should be finished flawless.");
+        }
     }
 
     @Test
-    @DisplayName("running invalid move")
+    @DisplayName("Running invalid move")
     void invalidMove() {
 
+        HanoiTowerControl _matchTest = new HanoiTowerControl();
+        _matchTest.startGame(5);
 
+        try {
+            _matchTest.selectFromPin(FIRST);
+            _matchTest.moveSelectedToPin(SECOND);
+
+            _matchTest.selectFromPin(FIRST);
+            Executable executeInvalidDiskMove = () -> _matchTest.moveSelectedToPin(SECOND);
+
+            Assertions.assertThrows(InvalidMoveException.class, executeInvalidDiskMove,
+                    "An exception should be thrown when trying to put a greater disk above a lesser.");
+        } catch (InvalidMoveException e) {
+            Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
+        }
     }
 }
 
