@@ -7,7 +7,7 @@
 package martes.lairjunior.usjt.algesd.hanoi.command;
 
 import martes.lairjunior.usjt.algesd.hanoi.Disk;
-import martes.lairjunior.usjt.algesd.hanoi.GerenciadorDoJogo;
+import martes.lairjunior.usjt.algesd.hanoi.GameManager;
 import martes.lairjunior.usjt.algesd.hanoi.Pin;
 import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
 
@@ -20,7 +20,7 @@ import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
 public class AdicionarPinoCommand implements PinoCommand {
 	public Disk doAction(Pin pino, Disk disco) throws InvalidMoveException {
 		pino.add(disco);
-		GerenciadorDoJogo.getInstance().incrementarMovimentos();
+		GameManager.getInstance().incrementarMovimentos();
 		return Disk.DISK_ZERO;
 	}
 }

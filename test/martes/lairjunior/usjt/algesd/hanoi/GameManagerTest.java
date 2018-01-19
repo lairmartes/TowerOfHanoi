@@ -84,10 +84,10 @@ class GameManagerTest {
                 Assertions.assertEquals(1, toBeMoved.getSize(),
                         "The first disk should be size 1");
                 // Check involved pins stack
-                pinsInDisk = _matchTest.clonedPinStack(FIRST);
+                pinsInDisk = _matchTest.clonePinStack(FIRST);
                 Assertions.assertEquals(2, pinsInDisk.length,
                         "Must have 2 disks since one disk has been removed");
-                pinsInDisk = _matchTest.clonedPinStack(THIRD);
+                pinsInDisk = _matchTest.clonePinStack(THIRD);
                 Assertions.assertEquals(1, pinsInDisk.length,
                         "Must have 1 disk since one disk has been included");
             } catch (InvalidMoveException e) {
@@ -101,7 +101,7 @@ class GameManagerTest {
 
             try {
                 toBeMoved = _matchTest.selectFromPin(FIRST);
-                _matchTest.moveSelectedToPin(FIRST, SECOND);
+                _matchTest.moveSelectedToPin(SECOND);
                 Assertions.assertEquals(2, toBeMoved.getSize(),
                         "The second disk must have size 2");
                 pinsInDisk = _matchTest.clonePinStack(FIRST);
@@ -177,14 +177,7 @@ class GameManagerTest {
                 Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
             }
         }
-
-    } catch(
-    InvalidMoveException e)
-
-    {
-        Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
     }
 }
-}
 
-        }
+
