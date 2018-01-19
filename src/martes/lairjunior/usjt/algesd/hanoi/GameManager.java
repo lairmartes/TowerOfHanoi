@@ -125,6 +125,11 @@ public class GameManager {
         return true;
     }
 
+    public void startGame(int _diskCapacity) {
+        this._diskCapacity = _diskCapacity;
+        iniciarJogo();
+    }
+
     public Disk selectFromPin(PinSequence selectedPin) {
         return Disk.DISK_ZERO;
     }
