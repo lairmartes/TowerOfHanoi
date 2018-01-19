@@ -14,9 +14,9 @@ public class Disk implements Comparable{
 	public final static Disk DISK_ZERO = new Disk(0);
 	private int _size;
 	private String _toString;
-	public Disk(int tamanho) {
-		_size = tamanho;
-		_toString = "Disk Size " + tamanho;
+	public Disk(int size) {
+		_size = size;
+		_toString = "disk sizing " + size;
 	}
 	public int getSize() {
 		return _size;

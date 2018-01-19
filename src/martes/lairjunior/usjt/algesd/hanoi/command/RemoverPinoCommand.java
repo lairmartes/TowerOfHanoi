@@ -18,7 +18,7 @@ import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
  */
 public class RemoverPinoCommand implements PinoCommand {
 	public Disk doAction(Pin pino, Disk disco) throws InvalidMoveException {
-		Disk result = pino.removerDisco();
+		Disk result = pino.removeDisk();
 		// nao contar remocao GerenciadorDoJogo.getInstance().incrementarMovimentos();
 		return result;
 	}

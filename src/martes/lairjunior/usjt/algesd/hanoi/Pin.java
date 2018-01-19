@@ -7,47 +7,44 @@
 package martes.lairjunior.usjt.algesd.hanoi;
 
 import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
-import martes.lairjunior.usjt.algesd.pilha.GenericStack;
 
 /**
  * @author Lair Martes Junior - 2CCPN - USJT
- *
  */
 public class Pin {
-	private GenericStack _pilhaDeDiscos;
-	public Pin() {
-		_pilhaDeDiscos = new DiskStack(GerenciadorDoJogo.getInstance().getQuantidadeDeDiscos());
-	}
-	public void adicionar(Disk discoParaEmpilhar) throws InvalidMoveException {
-		if (discoParaEmpilhar == Disk.DISK_ZERO)
-			throw new InvalidMoveException("Não é possível incluir Disk Zero");
-		if (_pilhaDeDiscos.size() == 0) {
-			_pilhaDeDiscos.push(discoParaEmpilhar);
-			return;
-		}
-		if (getDiscoMaisAlto().compareTo(discoParaEmpilhar) < 1) {
-			throw new InvalidMoveException("Pin não pode receber " + discoParaEmpilhar);
-		}
-		else  _pilhaDeDiscos.push(discoParaEmpilhar);
-	}
-	public Disk removerDisco() throws InvalidMoveException {
-		if (_pilhaDeDiscos.size() == 0) {
-			throw new InvalidMoveException("O pino não tem discos");
-		}
-		else {
-			return (Disk)_pilhaDeDiscos.pop();
-		}
-	}
-	public Object[] getDiscos() {
-		return _pilhaDeDiscos.content();
-	}
-	public void iniciarPilhaDeDiscos() {
-		_pilhaDeDiscos.reset(GerenciadorDoJogo.getInstance().getQuantidadeDeDiscos());
-	}
-	public void iniciarPilhaDeDiscos(int quantidade) {
-		_pilhaDeDiscos.reset(quantidade);
-	}
-	private Disk getDiscoMaisAlto() {
-		return (Disk)_pilhaDeDiscos.top();
-	}
+    private DiskStack diskStack;
+
+    public Pin(int howManyDisks) {
+
+        diskStack = new DiskStack(howManyDisks);
+    }
+
+    public void add(Disk diskToBeStacked) throws InvalidMoveException {
+        if (diskToBeStacked.getSize() == 0)
+            throw new InvalidMoveException("You can't include a disk with zero length.");
+        if (diskStack.size() == 0) {
+            diskStack.push(diskToBeStacked);
+            return;
+        }
+        if (diskStack.top().compareTo(diskToBeStacked) < 1) {
+            throw new InvalidMoveException(
+                    "This pin can't receive " + diskToBeStacked + "since it's greater than " + diskStack.top());
+        } else diskStack.push(diskToBeStacked);
+    }
+
+    public Disk removeDisk() throws InvalidMoveException {
+        if (diskStack.size() == 0) {
+            throw new InvalidMoveException("This pin have no disks");
+        } else {
+            return diskStack.pop();
+        }
+    }
+
+    public Disk[] getDisks() {
+        return diskStack.content();
+    }
+
+    public void reset(int howManyDisks) {
+        diskStack.reset(howManyDisks);
+    }
 }

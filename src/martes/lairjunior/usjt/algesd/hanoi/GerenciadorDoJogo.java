@@ -34,7 +34,7 @@ public class GerenciadorDoJogo {
 			_instance = new GerenciadorDoJogo();
 			_instance._pinosDoJogo = new Pin[QUANTIDADE_PINOS];
 			for (int i=0; i<QUANTIDADE_PINOS; i++) {
-				_instance._pinosDoJogo[i] = new Pin(); /* TODO: initialize pin qtty here. */
+				_instance._pinosDoJogo[i] = new Pin(QUANTIDADE_DEFAULT_DISCOS);
 			}
 			_instance.iniciarJogo();
 		}
@@ -64,14 +64,14 @@ public class GerenciadorDoJogo {
 	}
 	private void iniciarPinos() {
 		for (int i=0; i<QUANTIDADE_PINOS; i++) {
-			_pinosDoJogo[i].iniciarPilhaDeDiscos();
+			_pinosDoJogo[i].reset(this._quantidadeDeDiscos);
 		}
 		iniciarPrimeiroPino();
 	}
 	private void iniciarPrimeiroPino() {
 		try {
 			for (int i=_quantidadeDeDiscos-1; i >= 0; i--)
-				_pinosDoJogo[PINO_1].adicionar(_discosDoJogo[i]);
+				_pinosDoJogo[PINO_1].add(_discosDoJogo[i]);
 		}
 		catch (InvalidMoveException e) {
 			e.printStackTrace();
@@ -91,7 +91,7 @@ public class GerenciadorDoJogo {
 	}
 	public boolean isJogoTerminado() {
 		int quantidadeDeDiscosDoPino1 = 0;
-		Object[] relacaoDiscosPino1 = getPino(PINO_1).getDiscos(); 
+		Object[] relacaoDiscosPino1 = getPino(PINO_1).getDisks();
 		for (int i=0;i<relacaoDiscosPino1.length; i++) {
 			if (!relacaoDiscosPino1[i].equals(Disk.DISK_ZERO))
 				quantidadeDeDiscosDoPino1++;
@@ -99,7 +99,7 @@ public class GerenciadorDoJogo {
 		if (quantidadeDeDiscosDoPino1 > 0) return false;
 
 		int quantidadeDeDiscosDoPino3 = _quantidadeDeDiscos;
-		Object[] relacaoDiscosPino3 = getPino(PINO_3).getDiscos();
+		Object[] relacaoDiscosPino3 = getPino(PINO_3).getDisks();
 		for (int i=0;i<relacaoDiscosPino3.length; i++) {
 			if (!relacaoDiscosPino3[i].equals(Disk.DISK_ZERO))
 			quantidadeDeDiscosDoPino3--;

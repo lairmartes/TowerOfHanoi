@@ -19,7 +19,7 @@ import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
  */
 public class AdicionarPinoCommand implements PinoCommand {
 	public Disk doAction(Pin pino, Disk disco) throws InvalidMoveException {
-		pino.adicionar(disco);
+		pino.add(disco);
 		GerenciadorDoJogo.getInstance().incrementarMovimentos();
 		return Disk.DISK_ZERO;
 	}

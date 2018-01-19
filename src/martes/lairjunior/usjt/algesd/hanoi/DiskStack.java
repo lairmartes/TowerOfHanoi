@@ -10,32 +10,32 @@ import martes.lairjunior.usjt.algesd.pilha.GenericStack;
  */
 public class DiskStack implements GenericStack<Disk, Disk> {
 
-	private int capacity;
+	private int _capacity;
 	private int iPos;
-	private Disk[] stack;
+	private Disk[] _stack;
 
-	public DiskStack(int capacity) {
-		reset(capacity);
+	public DiskStack(int initialCapacity) {
+		reset(initialCapacity);
 	}
-	public void reset(int capacity) {
-		this.capacity = capacity;
-		stack = new Disk[capacity];
+	public void reset(int newCapacity) {
+		_capacity = newCapacity;
+		_stack = new Disk[_capacity];
 		fullFilStackWithZeroDisks();
 		iPos = 0;
 	}
 	private void fullFilStackWithZeroDisks() {
-		for (int i=0; i<capacity; i++)
-			stack[i] = Disk.DISK_ZERO;
+		for (int i = 0; i< _capacity; i++)
+			_stack[i] = Disk.DISK_ZERO;
 	}
 
 	public Disk push(Disk cC) {
-		if (iPos >= capacity) return Disk.DISK_ZERO;
-		return stack[iPos++] = cC;
+		if (iPos >= _capacity) return Disk.DISK_ZERO;
+		return _stack[iPos++] = cC;
 	}
 	public Disk pop() {
 		if (iPos == 0) return Disk.DISK_ZERO;
-        Disk result = stack[--iPos];
-		stack[iPos] = Disk.DISK_ZERO;
+        Disk result = _stack[--iPos];
+		_stack[iPos] = Disk.DISK_ZERO;
 		return result;
 	}
 
@@ -43,9 +43,9 @@ public class DiskStack implements GenericStack<Disk, Disk> {
 		return iPos;
 	}
 	public Disk top() {
-		return stack[iPos - 1];
+		return _stack[iPos - 1];
 	}
 	public Disk[] content() {
-		return stack;
+		return _stack;
 	}
 }
