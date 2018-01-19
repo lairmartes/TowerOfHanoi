@@ -70,27 +70,31 @@ class GameManagerTest {
 
     @Nested
     @DisplayName("Play with 3 disks and 7 moves")
-    class PlayWithMinimunMoves {
+    class Game {
 
         Disk toBeMoved;
-        Disk[] pinsInDisk;
 
         @Test
         @DisplayName("First move - Disk 1 from Pin 1 to Pin 3")
         void firstMove() {
             try {
+                String invalidAssertPrefix = "In the first move, %s";
+
                 toBeMoved = _matchTest.selectFromPin(FIRST);
                 _matchTest.moveSelectedToPin(THIRD);
+
+                // Check if disk moved has the correct size
                 Assertions.assertEquals(1, toBeMoved.getSize(),
-                        "The first disk should be size 1");
-                // Check involved pins stack
-                pinsInDisk = _matchTest.clonePinStack(FIRST);
-                Assertions.assertEquals(2, pinsInDisk.length,
-                        "Must have 2 disks since one disk has been removed");
-                pinsInDisk = _matchTest.clonePinStack(THIRD);
-                Assertions.assertEquals(1, pinsInDisk.length,
+                        String.format(invalidAssertPrefix, "the first disk should be size 1"));
+
+                // Check if pins have the correct disk quantity
+                Assertions.assertEquals(2, _matchTest.clonePinStack(FIRST).length,
+                        String.format(invalidAssertPrefix, "the first pin must have two disks"));
+                Assertions.assertEquals(1, _matchTest.clonePinStack(THIRD).length,
                         "Must have 1 disk since one disk has been included");
+
             } catch (InvalidMoveException e) {
+                // No invalid moves are done in this test
                 Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
             }
         }
@@ -100,16 +104,16 @@ class GameManagerTest {
         void secondMove() {
 
             try {
+                String invalidAssertPrefix = "In the second move, %s.";
+
                 toBeMoved = _matchTest.selectFromPin(FIRST);
                 _matchTest.moveSelectedToPin(SECOND);
                 Assertions.assertEquals(2, toBeMoved.getSize(),
-                        "The second disk must have size 2");
-                pinsInDisk = _matchTest.clonePinStack(FIRST);
-                Assertions.assertEquals(1, pinsInDisk.length,
-                        "Must have only one disk, since two disks have been moved to pin 3 and 2");
-                pinsInDisk = _matchTest.clonePinStack(SECOND);
-                Assertions.assertEquals(1, pinsInDisk.length,
-                        "Must have only one disk, since there was no disk before last move");
+                        String.format(invalidAssertPrefix, "the second disk should have size 2"));
+                Assertions.assertEquals(1, _matchTest.clonePinStack(FIRST).length,
+                        String.format(invalidAssertPrefix, "the first pin should have only one disk"));
+                Assertions.assertEquals(1, _matchTest.clonePinStack(SECOND).length,
+                        String.format(invalidAssertPrefix, "the second pin should have only one disk"));
             } catch (InvalidMoveException e) {
                 Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
             }
@@ -118,10 +122,18 @@ class GameManagerTest {
         @Test
         @DisplayName("Third move - Disk 1 from Pin 3 to Pin 2")
         void thirdMove() {
+
             try {
+                String invalidAssertPrefix = "In the third move, %s.";
+
                 toBeMoved = _matchTest.selectFromPin(THIRD);
                 _matchTest.moveSelectedToPin(SECOND);
-                Assertions.assertEquals(toBeMoved.getSize(), 1);
+                Assertions.assertEquals(1, toBeMoved.getSize(),
+                        String.format(invalidAssertPrefix, "the disk should have size one"));
+                Assertions.assertEquals(0, _matchTest.clonePinStack(THIRD).length,
+                        String.format(invalidAssertPrefix, "the third pin should have zero disks"));
+                Assertions.assertEquals(2, _matchTest.clonePinStack(SECOND).length,
+                        String.format(invalidAssertPrefix, "the second pin should have two disks"));
             } catch (InvalidMoveException e) {
                 Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
             }
@@ -132,10 +144,16 @@ class GameManagerTest {
         void fourthMove() {
 
             try {
+                String invalidAssertPrefix = "In the fourth move, %s.";
 
                 toBeMoved = _matchTest.selectFromPin(FIRST);
                 _matchTest.moveSelectedToPin(THIRD);
-                Assertions.assertEquals(toBeMoved.getSize(), 3);
+                Assertions.assertEquals(3, toBeMoved.getSize(),
+                        String.format(invalidAssertPrefix, "the disk should have size three"));
+                Assertions.assertEquals(0, _matchTest.clonePinStack(FIRST).length,
+                        String.format(invalidAssertPrefix, "the first pin should have no disks"));
+                Assertions.assertEquals(1, _matchTest.clonePinStack(THIRD).length,
+                        String.format(invalidAssertPrefix, "the third pin should have one disk"));
 
             } catch (InvalidMoveException e) {
                 Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
@@ -147,8 +165,17 @@ class GameManagerTest {
         void fifthMove() {
 
             try {
+                String invalidAssertPrefix = "In the fifth move, %s.";
+
                 toBeMoved = _matchTest.selectFromPin(SECOND);
                 _matchTest.moveSelectedToPin(FIRST);
+                Assertions.assertEquals(1, toBeMoved.getSize(),
+                        String.format(invalidAssertPrefix, "the disk should have size one"));
+                Assertions.assertEquals(1, _matchTest.clonePinStack(SECOND).length,
+                        String.format(invalidAssertPrefix, "the second pin should have one disk"));
+                Assertions.assertEquals(1, _matchTest.clonePinStack(FIRST).length,
+                        String.format(invalidAssertPrefix, "the first pin should have one disk"));
+
             } catch (InvalidMoveException e) {
                 Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
             }
@@ -159,9 +186,16 @@ class GameManagerTest {
         void sixthMove() {
 
             try {
+                String invalidAssertPrefix = "In the sixth move, %s.";
 
                 toBeMoved = _matchTest.selectFromPin(SECOND);
                 _matchTest.moveSelectedToPin(THIRD);
+                Assertions.assertEquals(1, toBeMoved.getSize(),
+                        String.format(invalidAssertPrefix, "the disk should have size two"));
+                Assertions.assertEquals(0, _matchTest.clonePinStack(SECOND).length,
+                        String.format(invalidAssertPrefix, "the second pin should have no disks"));
+                Assertions.assertEquals(2, _matchTest.clonePinStack(THIRD).length,
+                        String.format(invalidAssertPrefix, "the third pin should have two disks"));
             } catch (InvalidMoveException e) {
                 Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
             }
@@ -171,12 +205,28 @@ class GameManagerTest {
         @DisplayName("Final move - Disk 1 from Pin 1 to Pin 3")
         void finalMove() {
             try {
+                String invalidAssertPrefix = "In the final move, %s.";
+
                 toBeMoved = _matchTest.selectFromPin(FIRST);
                 _matchTest.moveSelectedToPin(THIRD);
+                Assertions.assertEquals(1, toBeMoved.getSize(),
+                        String.format(invalidAssertPrefix, "the disk should have size one"));
+                Assertions.assertEquals(0, _matchTest.clonePinStack(FIRST).length,
+                        String.format(invalidAssertPrefix, "the first pin should have no disks."));
+                Assertions.assertEquals(3, _matchTest.clonePinStack(THIRD).length,
+                        String.format(invalidAssertPrefix, "the third pin should have three disks"));
+
             } catch (InvalidMoveException e) {
                 Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
             }
         }
+    }
+
+    @Test
+    @DisplayName("running invalid move")
+    void invalidMove() {
+
+
     }
 }
 

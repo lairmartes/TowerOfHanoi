@@ -126,14 +126,14 @@ public class GameManager {
     }
 
     public Disk selectFromPin(PinSequence selectedPin) {
-        return null;
+        return Disk.DISK_ZERO;
     }
 
     public void moveSelectedToPin(PinSequence targetPin) throws InvalidMoveException {
 
     }
 
-    public Disk[] clonePinStack(PinSequence aPin) {
-        return null;
+    protected Disk[] clonePinStack(PinSequence aPin) {
+        return new Disk[0];
     }
 }
