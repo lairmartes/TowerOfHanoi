@@ -1,13 +1,13 @@
 package martes.lairjunior.usjt.algesd.hanoi;
 
 import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
-import org.junit.Before;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
-import static martes.lairjunior.usjt.algesd.hanoi.HanoiTowerControl.PinSequence.FIRST;
-import static martes.lairjunior.usjt.algesd.hanoi.HanoiTowerControl.PinSequence.SECOND;
-import static martes.lairjunior.usjt.algesd.hanoi.HanoiTowerControl.PinSequence.THIRD;
+import static martes.lairjunior.usjt.algesd.hanoi.HanoiTowerControl.PinSequence.*;
 
 class HanoiTowerControlTest {
 
@@ -72,14 +72,30 @@ class HanoiTowerControlTest {
         Disk toBeMoved;
         HanoiTowerControl _matchTest;
 
-        @Before
-        void Setup() {
-            _matchTest = new HanoiTowerControl();
-            _matchTest.startGame(3);
+        @Test
+        void playTheGame() {
+
+            _matchTest = new HanoiTowerControl(3);
+
+            // Fist move - Disk 1 from Pin 1 to Pin 3
+            this.firstMove();
+            // Second move - Disk 2 from Pin 1 to Pin 2
+            this.secondMove();
+            // Third move - Disk 1 from Pin 3 to Pin 2
+            this.thirdMove();
+            //Fourth move - Disk 3 from Pin 1 to Pin 3
+            this.fourthMove();
+            // Fifth move - Disk 1 from Pin 2 to Pin 1
+            this.fifthMove();
+            // Sixth move - Disk 2 from Pin 2 to Pin 3
+            this.sixthMove();
+            // Final move - Disk 1 from Pin 1 to Pin 3
+            this.finalMove();
+
+            // Check if game is over and score is perfect
+            this.checkGameStatus();
         }
 
-        @Test
-        @DisplayName("First move - Disk 1 from Pin 1 to Pin 3")
         void firstMove() {
             try {
                 String invalidAssertPrefix = "In the first move, %s";
@@ -92,9 +108,9 @@ class HanoiTowerControlTest {
                         String.format(invalidAssertPrefix, "the first disk should be size 1"));
 
                 // Check if pins have the correct disk quantity
-                Assertions.assertEquals(2, _matchTest.clonePinStack(FIRST).length,
+                Assertions.assertEquals(2, _matchTest.currentStackSize(FIRST),
                         String.format(invalidAssertPrefix, "the first pin must have two disks"));
-                Assertions.assertEquals(1, _matchTest.clonePinStack(THIRD).length,
+                Assertions.assertEquals(1, _matchTest.currentStackSize(THIRD),
                         "Must have 1 disk since one disk has been included");
 
             } catch (InvalidMoveException e) {
@@ -103,8 +119,6 @@ class HanoiTowerControlTest {
             }
         }
 
-        @Test
-        @DisplayName("Second move - Disk 2 from Pin 1 to Pin 2")
         void secondMove() {
 
             try {
@@ -114,17 +128,15 @@ class HanoiTowerControlTest {
                 _matchTest.moveSelectedToPin(SECOND);
                 Assertions.assertEquals(2, toBeMoved.getSize(),
                         String.format(invalidAssertPrefix, "the second disk should have size 2"));
-                Assertions.assertEquals(1, _matchTest.clonePinStack(FIRST).length,
+                Assertions.assertEquals(1, _matchTest.currentStackSize(FIRST),
                         String.format(invalidAssertPrefix, "the first pin should have only one disk"));
-                Assertions.assertEquals(1, _matchTest.clonePinStack(SECOND).length,
+                Assertions.assertEquals(1, _matchTest.currentStackSize(SECOND),
                         String.format(invalidAssertPrefix, "the second pin should have only one disk"));
             } catch (InvalidMoveException e) {
                 Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
             }
         }
 
-        @Test
-        @DisplayName("Third move - Disk 1 from Pin 3 to Pin 2")
         void thirdMove() {
 
             try {
@@ -134,17 +146,15 @@ class HanoiTowerControlTest {
                 _matchTest.moveSelectedToPin(SECOND);
                 Assertions.assertEquals(1, toBeMoved.getSize(),
                         String.format(invalidAssertPrefix, "the disk should have size one"));
-                Assertions.assertEquals(0, _matchTest.clonePinStack(THIRD).length,
+                Assertions.assertEquals(0, _matchTest.currentStackSize(THIRD),
                         String.format(invalidAssertPrefix, "the third pin should have zero disks"));
-                Assertions.assertEquals(2, _matchTest.clonePinStack(SECOND).length,
+                Assertions.assertEquals(2, _matchTest.currentStackSize(SECOND),
                         String.format(invalidAssertPrefix, "the second pin should have two disks"));
             } catch (InvalidMoveException e) {
                 Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
             }
         }
 
-        @Test
-        @DisplayName("Fourth move - Disk 3 from Pin 1 to Pin 3")
         void fourthMove() {
 
             try {
@@ -154,9 +164,9 @@ class HanoiTowerControlTest {
                 _matchTest.moveSelectedToPin(THIRD);
                 Assertions.assertEquals(3, toBeMoved.getSize(),
                         String.format(invalidAssertPrefix, "the disk should have size three"));
-                Assertions.assertEquals(0, _matchTest.clonePinStack(FIRST).length,
+                Assertions.assertEquals(0, _matchTest.currentStackSize(FIRST),
                         String.format(invalidAssertPrefix, "the first pin should have no disks"));
-                Assertions.assertEquals(1, _matchTest.clonePinStack(THIRD).length,
+                Assertions.assertEquals(1, _matchTest.currentStackSize(THIRD),
                         String.format(invalidAssertPrefix, "the third pin should have one disk"));
 
             } catch (InvalidMoveException e) {
@@ -164,8 +174,6 @@ class HanoiTowerControlTest {
             }
         }
 
-        @Test
-        @DisplayName("Fifth move - Disk 1 from Pin 2 to Pin 1")
         void fifthMove() {
 
             try {
@@ -175,9 +183,9 @@ class HanoiTowerControlTest {
                 _matchTest.moveSelectedToPin(FIRST);
                 Assertions.assertEquals(1, toBeMoved.getSize(),
                         String.format(invalidAssertPrefix, "the disk should have size one"));
-                Assertions.assertEquals(1, _matchTest.clonePinStack(SECOND).length,
+                Assertions.assertEquals(1, _matchTest.currentStackSize(SECOND),
                         String.format(invalidAssertPrefix, "the second pin should have one disk"));
-                Assertions.assertEquals(1, _matchTest.clonePinStack(FIRST).length,
+                Assertions.assertEquals(1, _matchTest.currentStackSize(FIRST),
                         String.format(invalidAssertPrefix, "the first pin should have one disk"));
 
             } catch (InvalidMoveException e) {
@@ -185,8 +193,6 @@ class HanoiTowerControlTest {
             }
         }
 
-        @Test
-        @DisplayName("Sixth move - Disk 2 from Pin 2 to Pin 3")
         void sixthMove() {
 
             try {
@@ -194,19 +200,17 @@ class HanoiTowerControlTest {
 
                 toBeMoved = _matchTest.selectFromPin(SECOND);
                 _matchTest.moveSelectedToPin(THIRD);
-                Assertions.assertEquals(1, toBeMoved.getSize(),
+                Assertions.assertEquals(2, toBeMoved.getSize(),
                         String.format(invalidAssertPrefix, "the disk should have size two"));
-                Assertions.assertEquals(0, _matchTest.clonePinStack(SECOND).length,
+                Assertions.assertEquals(0, _matchTest.currentStackSize(SECOND),
                         String.format(invalidAssertPrefix, "the second pin should have no disks"));
-                Assertions.assertEquals(2, _matchTest.clonePinStack(THIRD).length,
+                Assertions.assertEquals(2, _matchTest.currentStackSize(THIRD),
                         String.format(invalidAssertPrefix, "the third pin should have two disks"));
             } catch (InvalidMoveException e) {
                 Assertions.fail("A invalid move has been detected incorrectly: " + e.getMessage());
             }
         }
 
-        @Test
-        @DisplayName("Final move - Disk 1 from Pin 1 to Pin 3")
         void finalMove() {
             try {
                 String invalidAssertPrefix = "In the final move, %s.";
@@ -215,9 +219,9 @@ class HanoiTowerControlTest {
                 _matchTest.moveSelectedToPin(THIRD);
                 Assertions.assertEquals(1, toBeMoved.getSize(),
                         String.format(invalidAssertPrefix, "the disk should have size one"));
-                Assertions.assertEquals(0, _matchTest.clonePinStack(FIRST).length,
+                Assertions.assertEquals(0, _matchTest.currentStackSize(FIRST),
                         String.format(invalidAssertPrefix, "the first pin should have no disks."));
-                Assertions.assertEquals(3, _matchTest.clonePinStack(THIRD).length,
+                Assertions.assertEquals(3, _matchTest.currentStackSize(THIRD),
                         String.format(invalidAssertPrefix, "the third pin should have three disks"));
 
             } catch (InvalidMoveException e) {
@@ -225,8 +229,6 @@ class HanoiTowerControlTest {
             }
         }
 
-        @Test
-        @DisplayName("Check if game is over and score is perfect")
         void checkGameStatus() {
             Assertions.assertTrue(_matchTest.isGameOver(), "Game is not over, but it should be.");
             Assertions.assertEquals(1d, _matchTest.getScore(), "Game should be finished flawless.");
@@ -237,8 +239,7 @@ class HanoiTowerControlTest {
     @DisplayName("Running invalid move")
     void invalidMove() {
 
-        HanoiTowerControl _matchTest = new HanoiTowerControl();
-        _matchTest.startGame(5);
+        HanoiTowerControl _matchTest = new HanoiTowerControl(5);
 
         try {
             _matchTest.selectFromPin(FIRST);

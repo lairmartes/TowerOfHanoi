@@ -18,19 +18,22 @@ import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
 public class PainelDePinosGui extends javax.swing.JPanel {
     private LinhaDeDisco _linhaDoDiscoAtual;
     private Disk _discoAtual;
+    private HanoiTowerControl _hanoiTowerControl;
+    private int _moves;
     /** Creates new form PainelDePinosGui */
     public PainelDePinosGui() {
+        _hanoiTowerControl = new HanoiTowerControl(3);
         initComponents();
         iniciarJogo();
     }
     public void iniciarJogo() {
         habilitarBotoes();
-        atualizarDisco();
+        atualizarDisco(Disk.DISK_ZERO);
         atualizarPinos();
     }
     public void terminarJogo() {
         desabilitarBotoes();
-        _avisoAndamentoJogo.setText("Jogo Terminado em " + HanoiTowerControl.getInstance().getQuantidadeDeMovimentos() + " movimentos");
+        _avisoAndamentoJogo.setText("Jogo Terminado em " + _moves + " movimentos.");
     }
     private void habilitarBotoes() {
         _pino1GuiBotao.setEnabled(true);
@@ -42,10 +45,10 @@ public class PainelDePinosGui extends javax.swing.JPanel {
         _pino2GuiBotao.setEnabled(false);
         _pino3GuiBotao.setEnabled(false);
     }
-    private void atualizarDisco() {
-        _discoAtual = HanoiTowerControl.getInstance().getDiscoAtual();
+    private void atualizarDisco(Disk selectedDisk) {
+        _discoAtual = selectedDisk;
         _discoAtualTamanhoGuiLabel.setText(Integer.toString(_discoAtual.getSize()));
-        _linhaDoDiscoAtual = new LinhaDeDisco(HanoiTowerControl.getInstance().getDiscoAtual());
+        _linhaDoDiscoAtual = new LinhaDeDisco(_discoAtual);
         _discoAtualGuiLabel.setText(_linhaDoDiscoAtual.toString());
         _avisoMovimentoInvalido.setText("");
         _avisoAndamentoJogo.setText("Quantidade de Movimentos : " + HanoiTowerControl.getInstance().getQuantidadeDeMovimentos());
