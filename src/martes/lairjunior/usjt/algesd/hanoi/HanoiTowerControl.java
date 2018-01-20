@@ -85,7 +85,7 @@ public class HanoiTowerControl {
         //start score and moves
         _movesDone = 0;
         _score = 0.0d;
-        _minimumMovesRequired = (int)Math.pow(2, _pinCapacity) - 1;
+        _minimumMovesRequired = (int) Math.pow(2, _pinCapacity) - 1;
 
         broadCastEvent(new GameStartEvent(this._pinCapacity, _gamePins.clone()));
     }
@@ -106,7 +106,7 @@ public class HanoiTowerControl {
 
         // calculating rating
         if (_movesDone >= _minimumMovesRequired) {
-            _score = (double)_minimumMovesRequired / (double)_movesDone;
+            _score = (double) _minimumMovesRequired / (double) _movesDone;
         }
 
         fireDiskAdded(new PinEvent(_currentDisk, pinSelected, this._movesDone, this._gamePins));
@@ -116,61 +116,56 @@ public class HanoiTowerControl {
         }
     }
 
+    /* method created for testing purposes */
     protected int currentStackSize(PinSequence aPin) {
         return _gamePins[aPin.ordinal()].getStackSize();
     }
 
-    protected boolean isGameOver() {
+    private boolean isGameOver() {
 
-        for (Disk d:_gamePins[PinSequence.FIRST.ordinal()].getDisks()) {
+        for (Disk d : _gamePins[PinSequence.FIRST.ordinal()].getDisks()) {
             if (!Disk.DISK_ZERO.equals(d)) {
                 return false;
             }
         }
 
-        for (Disk d:_gamePins[PinSequence.THIRD.ordinal()].getDisks()) {
+        for (Disk d : _gamePins[PinSequence.THIRD.ordinal()].getDisks()) {
             if (Disk.DISK_ZERO.equals(d)) return false;
         }
 
         return true;
     }
 
-    protected double getScore() {
-        return _score;
-    }
-
-    protected int getMinimumMovesRequired() {
-        return _minimumMovesRequired;
-    }
 
     public void addListener(HanoiTowerListener listener) {
         this._hanoiTowerListener.add(listener);
     }
 
+    //event broadcaster
     private void fireDiskAdded(PinEvent event) {
 
-        for (HanoiTowerListener listener:_hanoiTowerListener) {
+        for (HanoiTowerListener listener : _hanoiTowerListener) {
             listener.fireDiskAdded(event);
         }
     }
 
     private void broadCastEvent(GameOverEvent event) {
 
-        for (HanoiTowerListener listener:_hanoiTowerListener) {
+        for (HanoiTowerListener listener : _hanoiTowerListener) {
             listener.hanoiTowerEvent(event);
         }
     }
 
     private void fireDiskRemoved(PinEvent event) {
 
-        for (HanoiTowerListener listener:_hanoiTowerListener) {
+        for (HanoiTowerListener listener : _hanoiTowerListener) {
             listener.fireDiskRemoved(event);
         }
     }
 
     private void broadCastEvent(GameStartEvent event) {
 
-        for (HanoiTowerListener listener: _hanoiTowerListener) {
+        for (HanoiTowerListener listener : _hanoiTowerListener) {
             listener.hanoiTowerEvent(event);
         }
     }

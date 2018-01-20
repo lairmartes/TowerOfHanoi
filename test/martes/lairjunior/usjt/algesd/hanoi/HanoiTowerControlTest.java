@@ -21,6 +21,7 @@ class HanoiTowerControlTest {
     private int _disksRemoved;
     private boolean _gameOverEventDetected;
     private boolean _gameStartEventDetected;
+    private double _finalGameScore;
 
     private HanoiTowerListener _listener = new HanoiTowerListener() {
 
@@ -32,6 +33,8 @@ class HanoiTowerControlTest {
         @Override
         public void hanoiTowerEvent(GameOverEvent event) {
             _gameOverEventDetected = true;
+
+            setFinalGameScore(event.getScore());
         }
 
         @Override
@@ -49,14 +52,15 @@ class HanoiTowerControlTest {
     @DisplayName("Play with 3 disks and 7 moves")
     void playTheGame() {
 
-        _matchTest = new HanoiTowerControl();
-        _matchTest.addListener(_listener);
-        _matchTest.startGame(3);
-
         _disksAdded = 0;
         _disksRemoved = 0;
         _gameOverEventDetected = false;
         _gameStartEventDetected = false;
+
+
+        _matchTest = new HanoiTowerControl();
+        _matchTest.addListener(_listener);
+        _matchTest.startGame(3);
 
         // Fist move - Disk 1 from Pin 1 to Pin 3
         this.firstMove();
@@ -74,7 +78,7 @@ class HanoiTowerControlTest {
         this.finalMove();
 
         // Check if game is over and score is perfect
-        this.checkGameStatus();
+        this.checkGameScore();
 
         // Check if events have been broadcast.
         this.checkEvents(7);
@@ -213,9 +217,11 @@ class HanoiTowerControlTest {
         }
     }
 
-    void checkGameStatus() {
-        Assertions.assertTrue(_matchTest.isGameOver(), "Game is not over, but it should be.");
-        Assertions.assertEquals(1d, _matchTest.getScore(), "Game should be finished flawless.");
+    void setFinalGameScore(double score) {
+        this._finalGameScore = score;
+    }
+    void checkGameScore() {
+        Assertions.assertEquals(1d, this._finalGameScore, "Game should be finished flawless.");
     }
 
     void checkEvents(int expectedMoves) {
