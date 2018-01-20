@@ -6,9 +6,8 @@
 
 package martes.lairjunior.usjt.algesd.hanoi.gui;
 
-import martes.lairjunior.usjt.algesd.hanoi.Disco;
-import martes.lairjunior.usjt.algesd.hanoi.Pino;
-import martes.lairjunior.usjt.algesd.hanoi.exception.MovimentoInvalidoException;
+import martes.lairjunior.usjt.algesd.hanoi.Disk;
+import martes.lairjunior.usjt.algesd.hanoi.Pin;
 
 /**
  *
@@ -20,29 +19,17 @@ public class PinoVisualPanel extends javax.swing.JPanel {
         initComponents();
         //testar();
     }
-    public void setPino(Pino pino) {
-        Object[] discos = pino.getDiscos();
+    public void setPino(Pin pino) {
+        Object[] discos = pino.getDisks();
         int quantidade = (discos == null ? 0 : discos.length);
         String textoVisualPilha = "";
         for (int i = quantidade-1; i>=0; i--) {
-            LinhaDeDisco linhaDesenhada = new LinhaDeDisco((Disco)discos[i]);
+            LinhaDeDisco linhaDesenhada = new LinhaDeDisco((Disk)discos[i]);
             textoVisualPilha += System.getProperty("line.separator") + linhaDesenhada;
         }
         _discoVisualTextPane.setText(textoVisualPilha);
     }
-    
-    public void testar() {
-        Pino pinoTeste = new Pino();
-        pinoTeste.iniciarPilhaDeDiscos(10);
-        try {
-            for (int i=9; i>=0; i--) {
-                pinoTeste.adicionar(new Disco(i+1));
-            }
-        }catch (MovimentoInvalidoException e) {
-            e.printStackTrace();
-        }
-        setPino(pinoTeste);
-    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

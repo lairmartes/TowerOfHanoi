@@ -10,7 +10,7 @@
 
 package martes.lairjunior.usjt.algesd.hanoi.gui;
 
-import martes.lairjunior.usjt.algesd.hanoi.Disco;
+import martes.lairjunior.usjt.algesd.hanoi.Disk;
 
 /**
  *
@@ -22,11 +22,15 @@ public class LinhaDeDisco {
     private final static String LINHA_EM_BRANCO = "          ";
     private final static int TAMANHO_MAXIMO_LINHA = 10;
     /** Creates a new instance of LinhaDeDisco */
-    public LinhaDeDisco(Disco disco) {
-        int diferenca = TAMANHO_MAXIMO_LINHA - disco.getTamanho();
+    public LinhaDeDisco(Disk disco) {
+        int diferenca = TAMANHO_MAXIMO_LINHA - disco.getSize();
         _linhaPrincipal = LINHA_EM_BRANCO.substring(TAMANHO_MAXIMO_LINHA - diferenca);
         _linhaPrincipal = _linhaPrincipal + LINHA_EM_BRANCO.substring(diferenca).replace(' ','_');
-        _linhaSimetrica = LINHA_EM_BRANCO.substring(0, disco.getTamanho()).replace(' ','_') + LINHA_EM_BRANCO.substring(disco.getTamanho());
+        _linhaSimetrica = LINHA_EM_BRANCO.substring(0,
+                                                    disco
+                                                            .getSize())
+                                                            .replace(' ','_') + LINHA_EM_BRANCO
+                                                            .substring(disco.getSize());
     }
     public String toString() {
         return _linhaPrincipal + _linhaSimetrica;

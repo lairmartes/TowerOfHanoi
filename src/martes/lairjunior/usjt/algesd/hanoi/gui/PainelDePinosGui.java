@@ -6,10 +6,10 @@
 
 package martes.lairjunior.usjt.algesd.hanoi.gui;
 
-import martes.lairjunior.usjt.algesd.hanoi.Disco;
-import martes.lairjunior.usjt.algesd.hanoi.GerenciadorDoJogo;
+import martes.lairjunior.usjt.algesd.hanoi.Disk;
+import martes.lairjunior.usjt.algesd.hanoi.HanoiTowerControl;
 import martes.lairjunior.usjt.algesd.hanoi.command.PinoCommandFactory;
-import martes.lairjunior.usjt.algesd.hanoi.exception.MovimentoInvalidoException;
+import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
 
 /**
  *
@@ -17,7 +17,7 @@ import martes.lairjunior.usjt.algesd.hanoi.exception.MovimentoInvalidoException;
  */
 public class PainelDePinosGui extends javax.swing.JPanel {
     private LinhaDeDisco _linhaDoDiscoAtual;
-    private Disco _discoAtual;
+    private Disk _discoAtual;
     /** Creates new form PainelDePinosGui */
     public PainelDePinosGui() {
         initComponents();
@@ -30,7 +30,7 @@ public class PainelDePinosGui extends javax.swing.JPanel {
     }
     public void terminarJogo() {
         desabilitarBotoes();
-        _avisoAndamentoJogo.setText("Jogo Terminado em " + GerenciadorDoJogo.getInstance().getQuantidadeDeMovimentos() + " movimentos");
+        _avisoAndamentoJogo.setText("Jogo Terminado em " + HanoiTowerControl.getInstance().getQuantidadeDeMovimentos() + " movimentos");
     }
     private void habilitarBotoes() {
         _pino1GuiBotao.setEnabled(true);
@@ -43,19 +43,19 @@ public class PainelDePinosGui extends javax.swing.JPanel {
         _pino3GuiBotao.setEnabled(false);
     }
     private void atualizarDisco() {
-        _discoAtual = GerenciadorDoJogo.getInstance().getDiscoAtual();
-        _discoAtualTamanhoGuiLabel.setText(Integer.toString(_discoAtual.getTamanho()));
-        _linhaDoDiscoAtual = new LinhaDeDisco(GerenciadorDoJogo.getInstance().getDiscoAtual());
+        _discoAtual = HanoiTowerControl.getInstance().getDiscoAtual();
+        _discoAtualTamanhoGuiLabel.setText(Integer.toString(_discoAtual.getSize()));
+        _linhaDoDiscoAtual = new LinhaDeDisco(HanoiTowerControl.getInstance().getDiscoAtual());
         _discoAtualGuiLabel.setText(_linhaDoDiscoAtual.toString());
         _avisoMovimentoInvalido.setText("");
-        _avisoAndamentoJogo.setText("Quantidade de Movimentos : " + GerenciadorDoJogo.getInstance().getQuantidadeDeMovimentos());
-        if (GerenciadorDoJogo.getInstance().isJogoTerminado())
+        _avisoAndamentoJogo.setText("Quantidade de Movimentos : " + HanoiTowerControl.getInstance().getQuantidadeDeMovimentos());
+        if (HanoiTowerControl.getInstance().isJogoTerminado())
             terminarJogo();
     }
     private void atualizarPinos() {
-        _pino1VisualPanel.setPino(GerenciadorDoJogo.getInstance().getPino(GerenciadorDoJogo.PINO_1));
-        _pino2VisualPanel.setPino(GerenciadorDoJogo.getInstance().getPino(GerenciadorDoJogo.PINO_2));
-        _pino3VisualPanel.setPino(GerenciadorDoJogo.getInstance().getPino(GerenciadorDoJogo.PINO_3));
+        _pino1VisualPanel.setPino(HanoiTowerControl.getInstance().getPino(HanoiTowerControl.PIN_1));
+        _pino2VisualPanel.setPino(HanoiTowerControl.getInstance().getPino(HanoiTowerControl.PIN_2));
+        _pino3VisualPanel.setPino(HanoiTowerControl.getInstance().getPino(HanoiTowerControl.PIN_3));
     }
     /** This method is called from within the constructor to
      * initialize the form.
@@ -86,7 +86,7 @@ public class PainelDePinosGui extends javax.swing.JPanel {
 
         _painelBotoes.setLayout(new java.awt.GridBagLayout());
 
-        _pino1GuiBotao.setText("Pino 1");
+        _pino1GuiBotao.setText("Pin 1");
         _pino1GuiBotao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _pino1GuiBotaoActionPerformed(evt);
@@ -100,7 +100,7 @@ public class PainelDePinosGui extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 3, 2, 4);
         _painelBotoes.add(_pino1GuiBotao, gridBagConstraints);
 
-        _pino2GuiBotao.setText("Pino 2");
+        _pino2GuiBotao.setText("Pin 2");
         _pino2GuiBotao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _pino2GuiBotaoActionPerformed(evt);
@@ -114,7 +114,7 @@ public class PainelDePinosGui extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 3, 2, 4);
         _painelBotoes.add(_pino2GuiBotao, gridBagConstraints);
 
-        _pino3GuiBotao.setText("Pino 3");
+        _pino3GuiBotao.setText("Pin 3");
         _pino3GuiBotao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _pino3GuiBotaoActionPerformed(evt);
@@ -241,27 +241,27 @@ public class PainelDePinosGui extends javax.swing.JPanel {
     // </editor-fold>//GEN-END:initComponents
 
     private void _pino3GuiBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__pino3GuiBotaoActionPerformed
-      atualizarTela(GerenciadorDoJogo.PINO_3);
+      atualizarTela(HanoiTowerControl.PIN_3);
     }//GEN-LAST:event__pino3GuiBotaoActionPerformed
 
     private void _pino2GuiBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__pino2GuiBotaoActionPerformed
-      atualizarTela(GerenciadorDoJogo.PINO_2);
+      atualizarTela(HanoiTowerControl.PIN_2);
     }//GEN-LAST:event__pino2GuiBotaoActionPerformed
 
     private void _pino1GuiBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__pino1GuiBotaoActionPerformed
-      atualizarTela(GerenciadorDoJogo.PINO_1);
+      atualizarTela(HanoiTowerControl.PIN_1);
     }
       private void atualizarTela(int pinoAcionado) {
         try {
-            GerenciadorDoJogo.getInstance().setDiscoAtual(
+            HanoiTowerControl.getInstance().setDiscoAtual(
             PinoCommandFactory.getInstance()
-                          .create(GerenciadorDoJogo.getInstance().getDiscoAtual())
-                          .doAction(GerenciadorDoJogo.getInstance().getPino(pinoAcionado),
-                                    GerenciadorDoJogo.getInstance().getDiscoAtual())
+                          .create(HanoiTowerControl.getInstance().getDiscoAtual())
+                          .doAction(HanoiTowerControl.getInstance().getPino(pinoAcionado),
+                                    HanoiTowerControl.getInstance().getDiscoAtual())
             );
             atualizarDisco();
             atualizarPinos();
-        }catch (MovimentoInvalidoException e) {
+        }catch (InvalidMoveException e) {
             _avisoMovimentoInvalido.setText(e.getMessage());
         }
     }//GEN-LAST:event__pino1GuiBotaoActionPerformed

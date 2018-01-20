@@ -6,7 +6,7 @@
 
 package martes.lairjunior.usjt.algesd.hanoi.gui;
 
-import martes.lairjunior.usjt.algesd.hanoi.GerenciadorDoJogo;
+import martes.lairjunior.usjt.algesd.hanoi.HanoiTowerControl;
 
 /**
  *
@@ -134,11 +134,11 @@ public class TorreDeHanoi extends javax.swing.JFrame {
         try {
             quantidadeDeDiscos = Integer.parseInt(_quantidadeDiscosGuiCaixaDeTexto.getText());
         }catch (NumberFormatException e) {
-            quantidadeDeDiscos = GerenciadorDoJogo.QUANTIDADE_DEFAULT_DISCOS;
+            quantidadeDeDiscos = HanoiTowerControl.INITIAL_DISK_CAPACITY;
             _quantidadeDiscosGuiCaixaDeTexto.setText(Integer.toString(quantidadeDeDiscos));
         }
-        GerenciadorDoJogo.getInstance().setQuantidadeDeDiscos(quantidadeDeDiscos);
-        GerenciadorDoJogo.getInstance().iniciarJogo();
+        HanoiTowerControl.getInstance().setQuantidadeDeDiscos(quantidadeDeDiscos);
+        HanoiTowerControl.getInstance().iniciarJogo();
         _painelDePinosGui.iniciarJogo();
     }//GEN-LAST:event__botaoIniciarJogoActionPerformed
     

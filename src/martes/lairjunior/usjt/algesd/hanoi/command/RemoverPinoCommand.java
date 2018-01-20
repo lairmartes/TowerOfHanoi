@@ -1,25 +1,25 @@
 /*
  * Criado em 26/09/2005
  *
- * Para alterar o gabarito para este arquivo gerado vá para
- * Janela&gt;Preferências&gt;Java&gt;Geração de Códigos&gt;Código e Comentários
+ * Para alterar o gabarito para este arquivo gerado vï¿½ para
+ * Janela&gt;Preferï¿½ncias&gt;Java&gt;Geraï¿½ï¿½o de Cï¿½digos&gt;Cï¿½digo e Comentï¿½rios
  */
 package martes.lairjunior.usjt.algesd.hanoi.command;
 
-import martes.lairjunior.usjt.algesd.hanoi.Disco;
-import martes.lairjunior.usjt.algesd.hanoi.Pino;
-import martes.lairjunior.usjt.algesd.hanoi.exception.MovimentoInvalidoException;
+import martes.lairjunior.usjt.algesd.hanoi.Disk;
+import martes.lairjunior.usjt.algesd.hanoi.Pin;
+import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
 
 /**
  * @author alunos
  *
- * Para alterar o gabarito para este comentário do tipo gerado vá para
- * Janela&gt;Preferências&gt;Java&gt;Geração de Códigos&gt;Código e Comentários
+ * Para alterar o gabarito para este comentï¿½rio do tipo gerado vï¿½ para
+ * Janela&gt;Preferï¿½ncias&gt;Java&gt;Geraï¿½ï¿½o de Cï¿½digos&gt;Cï¿½digo e Comentï¿½rios
  */
 public class RemoverPinoCommand implements PinoCommand {
-	public Disco doAction(Pino pino, Disco disco) throws MovimentoInvalidoException {
-		Disco result = pino.removerDisco();
-		// nao contar remocao GerenciadorDoJogo.getInstance().incrementarMovimentos();
+	public Disk doAction(Pin pino, Disk disco) throws InvalidMoveException {
+		Disk result = pino.removeDisk();
+		// nao contar remocao HanoiTowerControl.getInstance().incrementarMovimentos();
 		return result;
 	}
 }

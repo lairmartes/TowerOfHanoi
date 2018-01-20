@@ -6,7 +6,7 @@
  */
 package martes.lairjunior.usjt.algesd.hanoi.command;
 
-import martes.lairjunior.usjt.algesd.hanoi.Disco;
+import martes.lairjunior.usjt.algesd.hanoi.Disk;
 
 /**
  * @author Lair Martes Junior (em casa) Data e hora : 27/09/2005 02:08:00
@@ -26,8 +26,8 @@ public class PinoCommandFactory {
 		}
 		return _instance;
 	}
-	public PinoCommand create(Disco disco) {
-		if (disco.equals(Disco.DISCO_ZERO)) return _removerDiscoCommand;
+	public PinoCommand create(Disk disco) {
+		if (disco.equals(Disk.DISK_ZERO)) return _removerDiscoCommand;
 		else  return _adicionarDiscoCommnand;
 	}
 }
