@@ -18,9 +18,9 @@ public class GameStartEvent {
         return this._definedPinCapacity;
     }
 
-    public Pin getCurrentPin(HanoiTowerControl.PinSequence pinSequence) {
+    public Pin getCurrentPin(HanoiTowerControl.PinPosition pinPosition) {
 
-       return _currentGamePins[pinSequence.ordinal()];
+       return _currentGamePins[pinPosition.ordinal()];
 
     }
 }

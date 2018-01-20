@@ -19,7 +19,7 @@ public class HanoiTowerEventListener implements HanoiTowerListener {
     public void fireDiskAdded(PinEvent event) {
 
         this._painelDePinoGUI.atualizarDisco(event.getDiskMoved(), event.getCurrentMoves());
-        this._painelDePinoGUI.atualizarPinos(event.getTargetPin());
+        this._painelDePinoGUI.atualizarPinos(event.getPinPosition(), event.getTargetPin());
     }
 
     @Override
@@ -33,6 +33,7 @@ public class HanoiTowerEventListener implements HanoiTowerListener {
     public void fireDiskRemoved(PinEvent event) {
 
         _painelDePinoGUI.atualizarDisco(event.getDiskMoved(), event.getCurrentMoves());
+        _painelDePinoGUI.atualizarPinos(event.getPinPosition(), event.getTargetPin());
 
     }
 
@@ -40,6 +41,5 @@ public class HanoiTowerEventListener implements HanoiTowerListener {
     public void hanoiTowerEvent(GameStartEvent event) {
 
         _painelDePinoGUI.iniciarJogo(event.getPinCapacityDefined());
-
     }
 }

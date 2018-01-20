@@ -30,7 +30,7 @@ public class HanoiTowerControl {
     private int _minimumMovesRequired;
     private List<HanoiTowerListener> _hanoiTowerListener;
 
-    public enum PinSequence {
+    public enum PinPosition {
         FIRST, SECOND, THIRD
     }
 
@@ -77,7 +77,7 @@ public class HanoiTowerControl {
         // include all disks in the first pin
         try {
             for (int i = this._pinCapacity - 1; i >= 0; i--)
-                _gamePins[PinSequence.FIRST.ordinal()].add(_disksInTheGame[i]);
+                _gamePins[PinPosition.FIRST.ordinal()].add(_disksInTheGame[i]);
         } catch (InvalidMoveException e) {
             throw new RuntimeException("No exception were expected here.  Something goes wrong and requires immediate action.");
         }
@@ -90,17 +90,17 @@ public class HanoiTowerControl {
         broadCastEvent(new GameStartEvent(this._pinCapacity, _gamePins.clone()));
     }
 
-    public Disk selectFromPin(PinSequence selectedPin) throws InvalidMoveException {
-        Pin pinSelected = _gamePins[selectedPin.ordinal()];
+    public Disk selectFromPin(PinPosition pinPosition) throws InvalidMoveException {
+        Pin pinSelected = _gamePins[pinPosition.ordinal()];
         _currentDisk = pinSelected.removeDisk();
 
-        fireDiskRemoved(new PinEvent(this._currentDisk, pinSelected, this._movesDone, this._gamePins.clone()));
+        fireDiskRemoved(new PinEvent(this._currentDisk, pinPosition, pinSelected, this._movesDone));
 
         return _currentDisk;
     }
 
-    public void moveSelectedToPin(PinSequence targetPin) throws InvalidMoveException {
-        Pin pinSelected = _gamePins[targetPin.ordinal()];
+    public void moveSelectedToPin(PinPosition pinPosition) throws InvalidMoveException {
+        Pin pinSelected = _gamePins[pinPosition.ordinal()];
         pinSelected.add(_currentDisk);
         _movesDone++;
 
@@ -109,7 +109,7 @@ public class HanoiTowerControl {
             _score = (double) _minimumMovesRequired / (double) _movesDone;
         }
 
-        fireDiskAdded(new PinEvent(_currentDisk, pinSelected, this._movesDone, this._gamePins));
+        fireDiskAdded(new PinEvent(_currentDisk, pinPosition, pinSelected, this._movesDone));
 
         if (isGameOver()) {
             broadCastEvent(new GameOverEvent(this._movesDone, this._score));
@@ -117,19 +117,19 @@ public class HanoiTowerControl {
     }
 
     /* method created for testing purposes */
-    protected int currentStackSize(PinSequence aPin) {
+    protected int currentStackSize(PinPosition aPin) {
         return _gamePins[aPin.ordinal()].getStackSize();
     }
 
     private boolean isGameOver() {
 
-        for (Disk d : _gamePins[PinSequence.FIRST.ordinal()].getDisks()) {
+        for (Disk d : _gamePins[PinPosition.FIRST.ordinal()].getDisks()) {
             if (!Disk.DISK_ZERO.equals(d)) {
                 return false;
             }
         }
 
-        for (Disk d : _gamePins[PinSequence.THIRD.ordinal()].getDisks()) {
+        for (Disk d : _gamePins[PinPosition.THIRD.ordinal()].getDisks()) {
             if (Disk.DISK_ZERO.equals(d)) return false;
         }
 

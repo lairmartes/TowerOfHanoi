@@ -17,12 +17,19 @@ import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
  * Janela&gt;Prefer�ncias&gt;Java&gt;Gera��o de C�digos&gt;C�digo e Coment�rios
  */
 public class PinoCommand {
-    public void doAction(HanoiTowerControl htc, HanoiTowerControl.PinSequence pino, Disk disco)
+
+    private HanoiTowerControl _hanoiTowerControl;
+
+    public PinoCommand(HanoiTowerControl htc) {
+        this._hanoiTowerControl = htc;
+    }
+
+    public void doAction(HanoiTowerControl.PinPosition pino, Disk disco)
             throws InvalidMoveException {
 		if (Disk.DISK_ZERO.equals(disco)) {
-		    htc.selectFromPin(pino);
+		    this._hanoiTowerControl.selectFromPin(pino);
         } else {
-		    htc.moveSelectedToPin(pino);
+		    this._hanoiTowerControl.moveSelectedToPin(pino);
         }
     }
 }

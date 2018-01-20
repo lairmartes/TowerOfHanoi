@@ -7,6 +7,7 @@
 package martes.lairjunior.usjt.algesd.hanoi.gui;
 
 import martes.lairjunior.usjt.algesd.hanoi.HanoiTowerControl;
+import martes.lairjunior.usjt.algesd.hanoi.command.PinoCommand;
 import martes.lairjunior.usjt.algesd.hanoi.event.HanoiTowerListener;
 import martes.lairjunior.usjt.algesd.hanoi.gui.listener.HanoiTowerEventListener;
 
@@ -17,6 +18,7 @@ public class TorreDeHanoi extends javax.swing.JFrame {
 
     private HanoiTowerListener _gameControlerListener;
     private HanoiTowerControl _hanoiTowerControl;
+    private PinoCommand _commandPino;
 
     /**
      * Creates new form TorreDeHanoi
@@ -24,9 +26,12 @@ public class TorreDeHanoi extends javax.swing.JFrame {
     public TorreDeHanoi() {
 
         _hanoiTowerControl = new HanoiTowerControl();
-        _hanoiTowerControl.startGame(3);
+        this._commandPino = new PinoCommand(_hanoiTowerControl);
 
         initComponents();
+
+        this._hanoiTowerControl.addListener(new HanoiTowerEventListener(this, _painelDePinosGui));
+        this._hanoiTowerControl.startGame(3);
     }
 
     /**
@@ -40,7 +45,7 @@ public class TorreDeHanoi extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         _painelJogo = new javax.swing.JPanel();
-        _painelDePinosGui = new martes.lairjunior.usjt.algesd.hanoi.gui.PainelDePinosGui(_hanoiTowerControl);
+        _painelDePinosGui = new martes.lairjunior.usjt.algesd.hanoi.gui.PainelDePinosGui(this._commandPino);
         _painelInicioJogo = new javax.swing.JPanel();
         _botaoIniciarJogo = new javax.swing.JButton();
         _quantidadeDiscosGuiCaixaDeTexto = new javax.swing.JTextField();
@@ -128,7 +133,7 @@ public class TorreDeHanoi extends javax.swing.JFrame {
 
         getContentPane().add(_painelJogo);
 
-        _gameControlerListener = new HanoiTowerEventListener(this, _painelDePinosGui);
+        _painelDePinosGui.iniciarJogo(3);
 
         pack();
     }
