@@ -6,10 +6,7 @@
  */
 package martes.lairjunior.usjt.algesd.hanoi;
 
-import martes.lairjunior.usjt.algesd.hanoi.event.DiskSelectedEvent;
-import martes.lairjunior.usjt.algesd.hanoi.event.GameOverEvent;
-import martes.lairjunior.usjt.algesd.hanoi.event.HanoiTowerListener;
-import martes.lairjunior.usjt.algesd.hanoi.event.MoveEvent;
+import martes.lairjunior.usjt.algesd.hanoi.event.*;
 import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
 
 import java.util.ArrayList;
@@ -37,7 +34,9 @@ public class HanoiTowerControl {
         FIRST, SECOND, THIRD
     }
 
-    public HanoiTowerControl(int pinCapacity) {
+    public HanoiTowerControl() {
+
+        this._pinCapacity = -1;
 
         _gamePins = new Pin[PINS_AVAILABLE];
         _currentDisk = Disk.DISK_ZERO;
@@ -45,35 +44,10 @@ public class HanoiTowerControl {
 
         _hanoiTowerListener = new ArrayList<>();
 
+    }
+
+    public void startGame(int pinCapacity) {
         restartGame(pinCapacity);
-    }
-
-    public int getQuantidadeDeMovimentos() {
-        return _movesDone;
-    }
-
-    private boolean isJogoTerminado() {
-        int quantidadeDeDiscosDoPino1 = 0;
-        Object[] relacaoDiscosPino1 = _gamePins[PinSequence.FIRST.ordinal()].getDisks();
-        for (int i = 0; i < relacaoDiscosPino1.length; i++) {
-            if (!relacaoDiscosPino1[i].equals(Disk.DISK_ZERO))
-                quantidadeDeDiscosDoPino1++;
-        }
-        if (quantidadeDeDiscosDoPino1 > 0) return false;
-
-
-
-        int quantidadeDeDiscosDoPino3 = _pinCapacity;
-        Object[] relacaoDiscosPino3 = _gamePins[PinSequence.THIRD.ordinal()].getDisks();
-        for (int i = 0; i < relacaoDiscosPino3.length; i++) {
-            if (!relacaoDiscosPino3[i].equals(Disk.DISK_ZERO))
-                quantidadeDeDiscosDoPino3--;
-        }
-        if (quantidadeDeDiscosDoPino3 > 0) return false;
-
-
-
-        return true;
     }
 
     public void restartGame(int pinCapacity) {
@@ -112,11 +86,16 @@ public class HanoiTowerControl {
         _movesDone = 0;
         _score = 0.0d;
         _minimumMovesRequired = (int)Math.pow(2, _pinCapacity) - 1;
+
+        broadCastEvent(new GameStartEvent(this._pinCapacity, _gamePins.clone()));
     }
 
     public Disk selectFromPin(PinSequence selectedPin) throws InvalidMoveException {
         Pin pinSelected = _gamePins[selectedPin.ordinal()];
         _currentDisk = pinSelected.removeDisk();
+
+        fireDiskRemoved(new PinEvent(this._currentDisk, pinSelected, this._movesDone, this._gamePins.clone()));
+
         return _currentDisk;
     }
 
@@ -130,7 +109,11 @@ public class HanoiTowerControl {
             _score = (double)_minimumMovesRequired / (double)_movesDone;
         }
 
-        broadCastEvent(new MoveEvent(_currentDisk, targetPin));
+        fireDiskAdded(new PinEvent(_currentDisk, pinSelected, this._movesDone, this._gamePins));
+
+        if (isGameOver()) {
+            broadCastEvent(new GameOverEvent(this._movesDone, this._score));
+        }
     }
 
     protected int currentStackSize(PinSequence aPin) {
@@ -164,10 +147,10 @@ public class HanoiTowerControl {
         this._hanoiTowerListener.add(listener);
     }
 
-    private void broadCastEvent(MoveEvent event) {
+    private void fireDiskAdded(PinEvent event) {
 
         for (HanoiTowerListener listener:_hanoiTowerListener) {
-            listener.hanoiTowerEvent(event);
+            listener.fireDiskAdded(event);
         }
     }
 
@@ -178,9 +161,16 @@ public class HanoiTowerControl {
         }
     }
 
-    private void broadCastEvent(DiskSelectedEvent event) {
+    private void fireDiskRemoved(PinEvent event) {
 
         for (HanoiTowerListener listener:_hanoiTowerListener) {
+            listener.fireDiskRemoved(event);
+        }
+    }
+
+    private void broadCastEvent(GameStartEvent event) {
+
+        for (HanoiTowerListener listener: _hanoiTowerListener) {
             listener.hanoiTowerEvent(event);
         }
     }
