@@ -39,7 +39,7 @@ public class DiskStack implements GenericStack<Disk, Disk> {
 		return result;
 	}
 
-	public int size() {
+	protected int size() {
 		return iPos;
 	}
 	public Disk top() {

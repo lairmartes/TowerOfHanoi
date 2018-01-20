@@ -47,4 +47,8 @@ public class Pin {
     public void reset(int howManyDisks) {
         diskStack.reset(howManyDisks);
     }
+
+    protected int getStackSize() {
+        return diskStack.size();
+    }
 }
