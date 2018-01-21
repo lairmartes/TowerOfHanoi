@@ -9,7 +9,6 @@ package martes.lairjunior.usjt.algesd.pilha;
 public interface GenericStack<T, E> {
 	T pop();
 	T push(E cC);
-	int size();
 	void reset(int capacity);
 	T top();
 	T[] content();
