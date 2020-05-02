@@ -3,19 +3,12 @@
  *
  * Created on 27 de Setembro de 2005, 02:56
  *
- * To change this template, choose Tools | Options and locate the template under
- * the Source Creation and Management node. Right-click the template and choose
- * Open. You can then make changes to the template in the Source Editor.
  */
 
-package martes.lairjunior.usjt.algesd.hanoi.gui;
+package game.ui.gui;
 
-import martes.lairjunior.usjt.algesd.hanoi.Disk;
+import com.martialdev.game.hanoitower.core.control.Disk;
 
-/**
- *
- * @author lair
- */
 public class LinhaDeDisco {
     private String _linhaPrincipal;
     private String _linhaSimetrica;

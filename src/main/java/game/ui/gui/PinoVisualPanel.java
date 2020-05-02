@@ -2,17 +2,14 @@
  * PinoVisualPanel.java
  *
  * Created on 27 de Setembro de 2005, 02:32
- */
-
-package martes.lairjunior.usjt.algesd.hanoi.gui;
-
-import martes.lairjunior.usjt.algesd.hanoi.Disk;
-import martes.lairjunior.usjt.algesd.hanoi.Pin;
-
-/**
  *
- * @author  lair
  */
+
+package game.ui.gui;
+
+import com.martialdev.game.hanoitower.core.control.Pin;
+import com.martialdev.game.hanoitower.core.control.Disk;
+
 public class PinoVisualPanel extends javax.swing.JPanel {
     /** Creates new form PinoVisualPanel */
     public PinoVisualPanel() {

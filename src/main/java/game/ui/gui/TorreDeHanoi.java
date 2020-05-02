@@ -4,12 +4,12 @@
  * Created on 27 de Setembro de 2005, 03:30
  */
 
-package martes.lairjunior.usjt.algesd.hanoi.gui;
+package game.ui.gui;
 
-import martes.lairjunior.usjt.algesd.hanoi.HanoiTowerControl;
-import martes.lairjunior.usjt.algesd.hanoi.command.PinoCommand;
-import martes.lairjunior.usjt.algesd.hanoi.event.HanoiTowerListener;
-import martes.lairjunior.usjt.algesd.hanoi.gui.listener.HanoiTowerEventListener;
+import game.ui.command.PinoCommand;
+import com.martialdev.game.hanoitower.core.control.HanoiTowerControl;
+import com.martialdev.game.hanoitower.core.control.event.HanoiTowerListener;
+import game.ui.gui.listener.HanoiTowerEventListener;
 
 /**
  * @author lair
@@ -45,7 +45,7 @@ public class TorreDeHanoi extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         _painelJogo = new javax.swing.JPanel();
-        _painelDePinosGui = new martes.lairjunior.usjt.algesd.hanoi.gui.PainelDePinosGui(this._commandPino);
+        _painelDePinosGui = new PainelDePinosGui(this._commandPino);
         _painelInicioJogo = new javax.swing.JPanel();
         _botaoIniciarJogo = new javax.swing.JButton();
         _quantidadeDiscosGuiCaixaDeTexto = new javax.swing.JTextField();
@@ -173,7 +173,7 @@ public class TorreDeHanoi extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton _botaoIniciarJogo;
     private javax.swing.JButton _botaoSair;
-    private martes.lairjunior.usjt.algesd.hanoi.gui.PainelDePinosGui _painelDePinosGui;
+    private PainelDePinosGui _painelDePinosGui;
     private javax.swing.JPanel _painelInicioJogo;
     private javax.swing.JPanel _painelJogo;
     private javax.swing.JTextField _quantidadeDiscosGuiCaixaDeTexto;

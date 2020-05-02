@@ -4,18 +4,14 @@
  * Created on 27 de Setembro de 2005, 04:24
  */
 
-package martes.lairjunior.usjt.algesd.hanoi.gui;
+package game.ui.gui;
 
-import martes.lairjunior.usjt.algesd.hanoi.Disk;
-import martes.lairjunior.usjt.algesd.hanoi.HanoiTowerControl;
-import martes.lairjunior.usjt.algesd.hanoi.Pin;
-import martes.lairjunior.usjt.algesd.hanoi.command.PinoCommand;
-import martes.lairjunior.usjt.algesd.hanoi.exception.InvalidMoveException;
+import game.ui.command.PinoCommand;
+import com.martialdev.game.hanoitower.core.control.Disk;
+import com.martialdev.game.hanoitower.core.control.Pin;
+import com.martialdev.game.hanoitower.core.control.HanoiTowerControl;
+import com.martialdev.game.hanoitower.core.control.exception.InvalidMoveException;
 
-/**
- *
- * @author  lair
- */
 public class PainelDePinosGui extends javax.swing.JPanel {
     private LinhaDeDisco _linhaDoDiscoAtual;
     private Disk _discoAtual;
@@ -43,9 +39,9 @@ public class PainelDePinosGui extends javax.swing.JPanel {
         } catch (InvalidMoveException ex) {
             throw new RuntimeException("An InvalidMoveException is not supposed to happen while building the Pin Panel");
         }
-        atualizarPinos(HanoiTowerControl.PinPosition.FIRST, firstPin);
-        atualizarPinos(HanoiTowerControl.PinPosition.SECOND, new Pin(quantidadeDeDiscos));
-        atualizarPinos(HanoiTowerControl.PinPosition.THIRD, new Pin(quantidadeDeDiscos));
+        atualizarPinos(HanoiTowerControl.PinPosition.FIRST_PIN, firstPin);
+        atualizarPinos(HanoiTowerControl.PinPosition.SECOND_PIN, new Pin(quantidadeDeDiscos));
+        atualizarPinos(HanoiTowerControl.PinPosition.THIRD_PIN, new Pin(quantidadeDeDiscos));
     }
     public void terminarJogo(int _moves) {
         desabilitarBotoes();
@@ -73,9 +69,9 @@ public class PainelDePinosGui extends javax.swing.JPanel {
     public void atualizarPinos(HanoiTowerControl.PinPosition pinPosition, Pin updatedPin) {
 
         switch (pinPosition) {
-            case FIRST: _pino1VisualPanel.setPino(updatedPin); break;
-            case SECOND: _pino2VisualPanel.setPino(updatedPin); break;
-            case THIRD: _pino3VisualPanel.setPino(updatedPin); break;
+            case FIRST_PIN: _pino1VisualPanel.setPino(updatedPin); break;
+            case SECOND_PIN: _pino2VisualPanel.setPino(updatedPin); break;
+            case THIRD_PIN: _pino3VisualPanel.setPino(updatedPin); break;
         }
     }
     /** This method is called from within the constructor to
@@ -92,9 +88,9 @@ public class PainelDePinosGui extends javax.swing.JPanel {
         _pino2GuiBotao = new javax.swing.JButton();
         _pino3GuiBotao = new javax.swing.JButton();
         _painelVisualPinos = new javax.swing.JPanel();
-        _pino1VisualPanel = new martes.lairjunior.usjt.algesd.hanoi.gui.PinoVisualPanel();
-        _pino2VisualPanel = new martes.lairjunior.usjt.algesd.hanoi.gui.PinoVisualPanel();
-        _pino3VisualPanel = new martes.lairjunior.usjt.algesd.hanoi.gui.PinoVisualPanel();
+        _pino1VisualPanel = new PinoVisualPanel();
+        _pino2VisualPanel = new PinoVisualPanel();
+        _pino3VisualPanel = new PinoVisualPanel();
         _painelDescricaoDisco = new javax.swing.JPanel();
         _discoAtualCampoGuiLabel = new javax.swing.JLabel();
         _discoAtualGuiLabel = new javax.swing.JLabel();
@@ -262,15 +258,15 @@ public class PainelDePinosGui extends javax.swing.JPanel {
     // </editor-fold>//GEN-END:initComponents
 
     private void _pino3GuiBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__pino3GuiBotaoActionPerformed
-      atualizarTela(HanoiTowerControl.PinPosition.THIRD);
+      atualizarTela(HanoiTowerControl.PinPosition.THIRD_PIN);
     }//GEN-LAST:event__pino3GuiBotaoActionPerformed
 
     private void _pino2GuiBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__pino2GuiBotaoActionPerformed
-      atualizarTela(HanoiTowerControl.PinPosition.SECOND);
+      atualizarTela(HanoiTowerControl.PinPosition.SECOND_PIN);
     }//GEN-LAST:event__pino2GuiBotaoActionPerformed
 
     private void _pino1GuiBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__pino1GuiBotaoActionPerformed
-      atualizarTela(HanoiTowerControl.PinPosition.FIRST);
+      atualizarTela(HanoiTowerControl.PinPosition.FIRST_PIN);
     }
       private void atualizarTela(HanoiTowerControl.PinPosition pinoAcionado) {
         try {
@@ -292,11 +288,11 @@ public class PainelDePinosGui extends javax.swing.JPanel {
     private javax.swing.JPanel _painelDescricaoDisco;
     private javax.swing.JPanel _painelVisualPinos;
     private javax.swing.JButton _pino1GuiBotao;
-    private martes.lairjunior.usjt.algesd.hanoi.gui.PinoVisualPanel _pino1VisualPanel;
+    private PinoVisualPanel _pino1VisualPanel;
     private javax.swing.JButton _pino2GuiBotao;
-    private martes.lairjunior.usjt.algesd.hanoi.gui.PinoVisualPanel _pino2VisualPanel;
+    private PinoVisualPanel _pino2VisualPanel;
     private javax.swing.JButton _pino3GuiBotao;
-    private martes.lairjunior.usjt.algesd.hanoi.gui.PinoVisualPanel _pino3VisualPanel;
+    private PinoVisualPanel _pino3VisualPanel;
     // End of variables declaration//GEN-END:variables
     
 }
