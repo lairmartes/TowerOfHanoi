@@ -27,6 +27,7 @@ public class PainelDePinosGui extends javax.swing.JPanel {
         initComponents();
     }
     public void iniciarJogo(int quantidadeDeDiscos) {
+        isPegando = true;
         habilitarBotoes();
         atualizarDisco(Disk.DISK_ZERO, 0);
         Pin firstPin = new Pin(quantidadeDeDiscos);
@@ -42,7 +43,6 @@ public class PainelDePinosGui extends javax.swing.JPanel {
         atualizarPinos(HanoiTowerControl.PinPosition.FIRST_PIN, firstPin);
         atualizarPinos(HanoiTowerControl.PinPosition.SECOND_PIN, new Pin(quantidadeDeDiscos));
         atualizarPinos(HanoiTowerControl.PinPosition.THIRD_PIN, new Pin(quantidadeDeDiscos));
-        isPegando = true;
     }
     public void terminarJogo(int _moves) {
         desabilitarBotoes();
@@ -89,6 +89,12 @@ public class PainelDePinosGui extends javax.swing.JPanel {
 
         }
     }
+
+    @Override
+    public float getAlignmentX() {
+        return super.getAlignmentX();
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -118,9 +124,7 @@ public class PainelDePinosGui extends javax.swing.JPanel {
 
         _painelBotoes.setLayout(new java.awt.GridBagLayout());
 
-        String textoBotao = getTextoDoBotao();
-
-        _pino1GuiBotao.setText(textoBotao);
+        _pino1GuiBotao.setText("Pin 1");
         _pino1GuiBotao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _pino1GuiBotaoActionPerformed(evt);
@@ -134,7 +138,7 @@ public class PainelDePinosGui extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 3, 2, 4);
         _painelBotoes.add(_pino1GuiBotao, gridBagConstraints);
 
-        _pino2GuiBotao.setText(textoBotao);
+        _pino2GuiBotao.setText("Pin 2");
         _pino2GuiBotao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _pino2GuiBotaoActionPerformed(evt);
@@ -148,7 +152,7 @@ public class PainelDePinosGui extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 3, 2, 4);
         _painelBotoes.add(_pino2GuiBotao, gridBagConstraints);
 
-        _pino3GuiBotao.setText(textoBotao);
+        _pino3GuiBotao.setText("Pin 3");
         _pino3GuiBotao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 _pino3GuiBotaoActionPerformed(evt);
@@ -273,9 +277,6 @@ public class PainelDePinosGui extends javax.swing.JPanel {
 
     }
 
-    private String getTextoDoBotao() {
-        return isPegando ? "Pegar" : "Soltar";
-    }
     // </editor-fold>//GEN-END:initComponents
 
     private void _pino3GuiBotaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__pino3GuiBotaoActionPerformed
