@@ -46,9 +46,10 @@ public class PainelDePinosGui extends javax.swing.JPanel {
         atualizarPinos(HanoiTowerControl.PinPosition.SECOND_PIN, new Pin(quantidadeDeDiscos));
         atualizarPinos(HanoiTowerControl.PinPosition.THIRD_PIN, new Pin(quantidadeDeDiscos));
     }
-    public void terminarJogo(int _moves) {
+    public void terminarJogo(int movimentos, double aproveitamento) {
         desabilitarBotoes();
-        _avisoAndamentoJogo.setText("Jogo Terminado em " + _moves + " movimentos.");
+        final String mensagem = "Jogo terminado! Movimentos: %d Pontuacao: %.0f/100";
+        _avisoAndamentoJogo.setText(String.format(mensagem, movimentos, aproveitamento * 100));
     }
 
     private void habilitarBotoes() {
@@ -88,10 +89,7 @@ public class PainelDePinosGui extends javax.swing.JPanel {
             }
             isPegando = !isPegando;
         } catch (InvalidMoveException e) {
-            JOptionPane.showMessageDialog(this,
-                    e.getMessage(),
-                    "Movimento invalido",
-                    JOptionPane.WARNING_MESSAGE);
+            _avisoAndamentoJogo.setText(e.getMessage());
         }
     }
 

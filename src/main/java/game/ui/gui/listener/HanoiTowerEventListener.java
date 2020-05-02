@@ -26,7 +26,7 @@ public class HanoiTowerEventListener implements HanoiTowerListener {
 
     public void hanoiTowerEvent(GameOverEvent event) {
 
-        _painelDePinoGUI.terminarJogo(event.totalMoves);
+        _painelDePinoGUI.terminarJogo(event.totalMoves, event.score);
     }
 
     public void fireDiskRemoved(PinEvent event) {
