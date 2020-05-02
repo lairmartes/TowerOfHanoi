@@ -6,9 +6,7 @@
 
 package game.ui.gui;
 
-import game.ui.command.PinoCommand;
 import com.martialdev.game.hanoitower.core.control.HanoiTowerControl;
-import com.martialdev.game.hanoitower.core.control.event.HanoiTowerListener;
 import game.ui.gui.listener.HanoiTowerEventListener;
 
 /**
@@ -16,22 +14,19 @@ import game.ui.gui.listener.HanoiTowerEventListener;
  */
 public class TorreDeHanoi extends javax.swing.JFrame {
 
-    private HanoiTowerListener _gameControlerListener;
-    private HanoiTowerControl _hanoiTowerControl;
-    private PinoCommand _commandPino;
+    private HanoiTowerControl _controladorDaTorre;
 
     /**
      * Creates new form TorreDeHanoi
      */
     public TorreDeHanoi() {
 
-        _hanoiTowerControl = new HanoiTowerControl();
-        this._commandPino = new PinoCommand(_hanoiTowerControl);
+        _controladorDaTorre = new HanoiTowerControl();
 
         initComponents();
 
-        this._hanoiTowerControl.addListener(new HanoiTowerEventListener(this, _painelDePinosGui));
-        this._hanoiTowerControl.startGame(3);
+        this._controladorDaTorre.addListener(new HanoiTowerEventListener(this, _painelDePinosGui));
+        this._controladorDaTorre.startGame(3);
     }
 
     /**
@@ -45,7 +40,7 @@ public class TorreDeHanoi extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         _painelJogo = new javax.swing.JPanel();
-        _painelDePinosGui = new PainelDePinosGui(this._commandPino);
+        _painelDePinosGui = new PainelDePinosGui(this._controladorDaTorre);
         _painelInicioJogo = new javax.swing.JPanel();
         _botaoIniciarJogo = new javax.swing.JButton();
         _quantidadeDiscosGuiCaixaDeTexto = new javax.swing.JTextField();
@@ -155,7 +150,7 @@ public class TorreDeHanoi extends javax.swing.JFrame {
             quantidadeDeDiscos = 3;// quantidade inicial de discos
             _quantidadeDiscosGuiCaixaDeTexto.setText(Integer.toString(quantidadeDeDiscos));
         }
-        _hanoiTowerControl.restartGame(quantidadeDeDiscos);
+        _controladorDaTorre.restartGame(quantidadeDeDiscos);
         _painelDePinosGui.iniciarJogo(quantidadeDeDiscos);
     }//GEN-LAST:event__botaoIniciarJogoActionPerformed
 
