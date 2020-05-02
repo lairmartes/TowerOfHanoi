@@ -11,6 +11,8 @@ import com.martialdev.game.hanoitower.core.control.Pin;
 import com.martialdev.game.hanoitower.core.control.HanoiTowerControl;
 import com.martialdev.game.hanoitower.core.control.exception.InvalidMoveException;
 
+import javax.swing.*;
+
 import static com.martialdev.game.hanoitower.core.control.HanoiTowerControl.PinPosition.FIRST_PIN;
 import static com.martialdev.game.hanoitower.core.control.HanoiTowerControl.PinPosition.SECOND_PIN;
 import static com.martialdev.game.hanoitower.core.control.HanoiTowerControl.PinPosition.THIRD_PIN;
@@ -86,7 +88,10 @@ public class PainelDePinosGui extends javax.swing.JPanel {
             }
             isPegando = !isPegando;
         } catch (InvalidMoveException e) {
-
+            JOptionPane.showMessageDialog(this,
+                    e.getMessage(),
+                    "Movimento invalido",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }
 

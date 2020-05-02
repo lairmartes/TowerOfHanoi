@@ -104,7 +104,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="_discoAtualCampoGuiLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="DiscoAtual"/>
+            <Property name="text" type="java.lang.String" value="Disco Atual"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
